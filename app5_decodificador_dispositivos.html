@@ -83,15 +83,22 @@
     <nav class="app-navigation">
         <div class="nav-links">
             <a href="index.html">Início</a>
-            <a href="app1_explorador_pilares.html">Explorador Pilares (App 1)</a>
-            <a href="app2_hotspots_globais.html">Hotspots Globais (App 2)</a>
-            <a href="app3_descomplicador_barreiras.html">Barreiras à IA (App 3)</a>
-            <a href="app4_casos_sucesso_fracasso.html">Casos Visão x Valores (App 4)</a>
-            <a href="app5_decodificador_dispositivos.html" class="active">Decodificador Dispositivos (App 5)</a>
-            <!-- 
-                NOTA PARA NAVEGAÇÃO FUTURA:
-                Considerar implementar um menu "Mais" ou "Outros Apps" com um dropdown.
-            -->
+            <a href="app1_explorador_pilares.html">Pilares (App1)</a>
+            <a href="app2_hotspots_globais.html">Hotspots (App2)</a>
+            <a href="app3_descomplicador_barreiras.html">Barreiras (App3)</a>
+            <div class="dropdown">
+                <button class="dropbtn">Mais Apps &#9662;</button>
+                <div class="dropdown-content">
+                    <a href="app4_casos_sucesso_fracasso.html">Casos (App4)</a>
+                    <a href="app5_decodificador_dispositivos.html">Dispositivos (App5)</a>
+                    <a href="app6_linguagem_natural.html">Linguagem (App6)</a>
+                    <a href="app7_balanca_etica.html">Ética (App7)</a>
+                    <a href="app8_regulacao_inovacao.html">Regulação (App8)</a>
+                    <a href="app9_teia_transformacao.html">Interdependências (App9)</a>
+                    <a href="app10_dispositivos_barreiras.html">Disp. Barreiras (App10)</a>
+                    <a href="app11_paradoxo_interacao.html">Paradoxo (App11)</a>
+                </div>
+            </div>
         </div>
         <button id="themeToggle" class="theme-toggle-button-nav" aria-label="Alternar tema">
             <img src="images/icons_usados/moon.svg" alt="Ícone Lua" class="icon-moon theme-icon">
@@ -176,7 +183,7 @@
     </footer>
 
     <script>
-        // Script de alternância de tema (o mesmo do index.html)
+        // Script de alternância de tema
         const themeToggle = document.getElementById('themeToggle');
         const body = document.body;
         
@@ -207,7 +214,7 @@
             localStorage.setItem('theme', newTheme);
         });
 
-        // Script para funcionalidades da página
+        // Script para funcionalidades da página (Navegação e Dropdown)
         document.addEventListener('DOMContentLoaded', function() {
             // KaTeX (se necessário em futuras evoluções desta página)
             if (typeof renderMathInElement === 'function') {
@@ -220,21 +227,65 @@
                 });
             }
 
-            // Script para marcar link ativo na navegação
-            const links = document.querySelectorAll('.app-navigation .nav-links a');
+            // --- Active Link Logic ---
+            const links = document.querySelectorAll('.app-navigation .nav-links a, .app-navigation .dropdown-content a');
+            const dropdownBtn = document.querySelector('.app-navigation .dropdown .dropbtn');
             let currentPath = window.location.pathname;
+            
             if (currentPath.startsWith('file:')) {
                 currentPath = currentPath.substring(currentPath.lastIndexOf('/') + 1);
             } else {
-                if (currentPath.endsWith('/')) { currentPath += 'index.html'; }
+                if (currentPath.endsWith('/')) {
+                    currentPath += 'index.html'; 
+                }
                 currentPath = currentPath.substring(currentPath.lastIndexOf('/') + 1);
             }
             if (currentPath === '') currentPath = 'index.html';
+
+            let isDropdownItemActive = false;
             links.forEach(link => {
                 const linkPath = link.getAttribute('href').split('/').pop();
-                if (linkPath === currentPath) { link.classList.add('active'); } 
-                else { link.classList.remove('active'); }
+                if (linkPath === currentPath) {
+                    link.classList.add('active');
+                    if (link.closest('.dropdown-content') && dropdownBtn) {
+                        link.closest('.dropdown').querySelector('.dropbtn').classList.add('active-parent');
+                        isDropdownItemActive = true; 
+                    }
+                } else {
+                    link.classList.remove('active');
+                }
             });
+
+            // --- Dropdown Logic ---
+            if (dropdownBtn) {
+                const dropdownContent = dropdownBtn.nextElementSibling;
+
+                dropdownBtn.addEventListener('click', function(event) {
+                    event.stopPropagation(); 
+                    const isCurrentlyShow = dropdownContent.classList.contains('show');
+                    
+                    dropdownContent.classList.toggle('show');
+
+                    if (dropdownContent.classList.contains('show')) {
+                        dropdownBtn.classList.add('active'); 
+                    } else {
+                        if (!dropdownBtn.classList.contains('active-parent')) {
+                           dropdownBtn.classList.remove('active');
+                        }
+                    }
+                });
+
+                window.addEventListener('click', function(event) {
+                    if (dropdownContent.classList.contains('show')) {
+                        if (!dropdownBtn.contains(event.target) && !dropdownContent.contains(event.target)) {
+                            dropdownContent.classList.remove('show');
+                            if (!dropdownBtn.classList.contains('active-parent')) {
+                                dropdownBtn.classList.remove('active');
+                            }
+                        }
+                    }
+                });
+            }
         });
     </script>
 </body>
