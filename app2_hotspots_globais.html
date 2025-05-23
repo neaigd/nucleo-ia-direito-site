@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App 2: Hotspots Globais de IA - Núcleo de Estudos</title>
+    <link rel="stylesheet" href="css/style.css"> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" integrity="sha384-wcIxkf4k55AIcd2uy7g7WpVfAUcSwrrFRU8TTWELU7Ld84QCJWAARekL7SgMRSuB" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js" integrity="sha384-hIoBPJpTUs74ddyc4bFZSM1gAUAAN5CRbMpbgotgjMHHJaTDCB1UeFCAfPTL4VKB" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js" integrity="sha384-gMqMDRY31GPoApRNGbAVH8yLQD9Iok9RzP72rYF6A734zZwo7rX/rXAAUa7qJjxH" crossorigin="anonymous"
+        onload="renderMathInElement(document.body, { delimiters: [ {left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}, {left: '\\(', right: '\\)', display: false}, {left: '\\[', right: '\\]', display: true} ], throwOnError: false });"></script>
+    <style>
+        /* Estilos específicos para a página app2 */
+        .hotspots-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px; /* Espaçamento entre os cards */
+            justify-content: center;
+        }
+        .hotspot-card {
+            background-color: rgba(255,255,255,0.05); /* Fundo sutil para os cards */
+            border: 1px solid var(--color-border-light);
+            border-radius: 8px;
+            padding: 20px;
+            width: calc(33.333% - 20px); /* Três cards por linha, considerando o gap */
+            min-width: 300px; /* Largura mínima para responsividade */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .hotspot-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+        }
+        body.dark-theme .hotspot-card {
+            background-color: rgba(0,0,0,0.15);
+            border-color: var(--color-border-dark);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        body.dark-theme .hotspot-card:hover {
+             box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+        .hotspot-card h3 {
+            margin-top: 0;
+            color: var(--text-on-gradient-content-light); /* Usando a cor de texto do gradiente para consistência */
+            border-bottom: 2px solid var(--color-logo-green);
+            padding-bottom: 8px;
+            font-size: 1.4em;
+        }
+        body.dark-theme .hotspot-card h3 {
+            color: var(--text-on-gradient-content-dark);
+            border-bottom-color: var(--color-logo-green);
+        }
+        .hotspot-card h4 {
+            font-size: 1em;
+            color: var(--text-on-gradient-content-light);
+            opacity: 0.85;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+        body.dark-theme .hotspot-card h4 {
+            color: var(--text-on-gradient-content-dark);
+        }
+        .hotspot-card p, .hotspot-card ul {
+            font-size: 0.95em;
+            margin-bottom: 10px;
+            color: var(--text-on-gradient-content-light);
+            opacity: 0.9;
+        }
+        body.dark-theme .hotspot-card p, body.dark-theme .hotspot-card ul {
+             color: var(--text-on-gradient-content-dark);
+        }
+        .hotspot-card ul {
+            list-style: disc;
+            padding-left: 20px;
+        }
+        .hotspot-card .differentiator {
+            margin-top: auto; /* Empurra para o final do card */
+            padding-top: 10px;
+            border-top: 1px dashed var(--color-border-light);
+        }
+        body.dark-theme .hotspot-card .differentiator {
+            border-top-color: var(--color-border-dark);
+        }
+
+        /* Responsividade para os cards */
+        @media (max-width: 992px) {
+            .hotspot-card {
+                width: calc(50% - 20px); /* Dois cards por linha */
+            }
+        }
+        @media (max-width: 600px) {
+            .hotspot-card {
+                width: 100%; /* Um card por linha */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="images/logoNucleo.svg" alt="Logo Núcleo de Estudos IA Generativa Aplicada ao Direito" id="logo">
+        </div>
+        <div class="title-container">
+            <h1>Núcleo de Estudos <span class="highlight-ai">IA Generativa</span> Aplicada ao Direito</h1>
+        </div>
+    </header>
+
+    <nav class="app-navigation">
+        <div class="nav-links">
+            <a href="index.html">Início</a>
+            <a href="app1_explorador_pilares.html">Explorador Pilares (App 1)</a>
+            <a href="app2_hotspots_globais.html" class="active">Hotspots Globais (App 2)</a>
+            </div>
+        <button id="themeToggle" class="theme-toggle-button-nav" aria-label="Alternar tema">
+            <img src="images/icons_usados/moon.svg" alt="Ícone Lua" class="icon-moon theme-icon">
+            <img src="images/icons_usados/sun.svg" alt="Ícone Sol" class="icon-sun theme-icon">
+        </button>
+    </nav>
+
+    <main>
+        <section class="content-section">
+            <h2>App 2: Analisador Comparativo de Hotspots Globais de IA</h2>
+            <p>Explore uma análise comparativa dos principais hotspots globais de inovação em Inteligência Artificial, destacando seus fatores culturais, incentivos econômicos, apoio governamental, talentos e diferenciais únicos. Informações baseadas na Tabela 3 da pesquisa[cite: 251, 252].</p>
+        </section>
+
+        <div class="hotspots-container">
+            <div class="hotspot-card">
+                <h3>Silicon Valley (EUA)</h3>
+                <h4>Fatores Culturais Chave:</h4>
+                <p>Tolerância ao risco, "ethos de disrupção", "inovação sem permissão", alta mobilidade laboral. [cite: 252]</p>
+                <h4>Incentivos Econômicos:</h4>
+                <p>Capital de risco líder mundial, investimento privado significativo. [cite: 252]</p>
+                <h4>Apoio Governamental:</h4>
+                <p>Regulação historicamente descentralizada, financiamento da investigação universitária. [cite: 252]</p>
+                <h4>Pipeline de Talentos:</h4>
+                <p>Universidades de topo, íman de talento global. [cite: 252]</p>
+                <div class="differentiator">
+                    <h4>Diferenciador Único:</h4>
+                    <p>Pioneiro em modelos fundamentais, ecossistema de VC dominante. [cite: 252]</p>
+                </div>
+            </div>
+
+            <div class="hotspot-card">
+                <h3>China</h3>
+                <h4>Fatores Culturais Chave:</h4>
+                <p>Elevado otimismo em relação à IA, rápida adoção. [cite: 252]</p>
+                <h4>Incentivos Econômicos:</h4>
+                <p>VC em crescimento, fundos estatais significativos, eficiência de custos. [cite: 252]</p>
+                <h4>Apoio Governamental:</h4>
+                <p>Forte estratégia nacional de IA, regulação híbrida, acesso a dados. [cite: 252]</p>
+                <h4>Pipeline de Talentos:</h4>
+                <p>Grande reserva de talento doméstico, lidera em publicações/patentes. [cite: 252]</p>
+                <div class="differentiator">
+                    <h4>Diferenciador Único:</h4>
+                    <p>Rápida diminuição da diferença de qualidade, escala de implementação, volume de dados. [cite: 252]</p>
+                </div>
+            </div>
+
+            <div class="hotspot-card">
+                <h3>UE (ex: França, Alemanha)</h3>
+                <h4>Fatores Culturais Chave:</h4>
+                <p>Forte foco ético, impulso inovador emergente. [cite: 252]</p>
+                <h4>Incentivos Econômicos:</h4>
+                <p>VC em crescimento, iniciativas de financiamento a nível da UE (ex: fábricas de IA). [cite: 252]</p>
+                <h4>Apoio Governamental:</h4>
+                <p>Lei da IA da UE (em evolução), estratégias nacionais. [cite: 252]</p>
+                <h4>Pipeline de Talentos:</h4>
+                <p>Fortes instituições de investigação, talento especializado. [cite: 252]</p>
+                <div class="differentiator">
+                    <h4>Diferenciador Único:</h4>
+                    <p>Liderança regulatória (historicamente), foco em IA confiável. [cite: 252]</p>
+                </div>
+            </div>
+
+            <div class="hotspot-card">
+                <h3>Canadá (Waterloo-Toronto)</h3>
+                <h4>Fatores Culturais Chave:</h4>
+                <p>Colaborativo, diverso, fortes raízes académicas. [cite: 252]</p>
+                <h4>Incentivos Econômicos:</h4>
+                <p>Incubadoras/aceleradoras ativas com braços de investimento, cofinanciamento governamental. [cite: 252]</p>
+                <h4>Apoio Governamental:</h4>
+                <p>Estratégia nacional de IA, programas universidade-indústria. [cite: 252]</p>
+                <h4>Pipeline de Talentos:</h4>
+                <p>Investigadores pioneiros em IA, fortes programas universitários. [cite: 252]</p>
+                <div class="differentiator">
+                    <h4>Diferenciador Único:</h4>
+                    <p>Forte ligação universidade-indústria, base de talento diversificada. [cite: 252]</p>
+                </div>
+            </div>
+
+            <div class="hotspot-card">
+                <h3>Israel</h3>
+                <h4>Fatores Culturais Chave:</h4>
+                <p>Empreendedor, forte ligação à cibersegurança. [cite: 252]</p>
+                <h4>Incentivos Econômicos:</h4>
+                <p>Forte VC, foco em aplicações especializadas. [cite: 252]</p>
+                <h4>Apoio Governamental:</h4>
+                <p>Fórum nacional de especialistas em IA. [cite: 252]</p>
+                <h4>Pipeline de Talentos:</h4>
+                <p>Maior concentração de talento em IA per capita. [cite: 252]</p>
+                <div class="differentiator">
+                    <h4>Diferenciador Único:</h4>
+                    <p>Força em aplicações de nicho, especialização em cibersegurança. [cite: 252]</p>
+                </div>
+            </div>
+
+            <div class="hotspot-card">
+                <h3>ECO (ex: Polónia)</h3>
+                <h4>Fatores Culturais Chave:</h4>
+                <p>Forte tradição em educação técnica, dinamismo crescente. [cite: 252]</p>
+                <h4>Incentivos Econômicos:</h4>
+                <p>VC crescente, custos de mão de obra competitivos. [cite: 252]</p>
+                <h4>Apoio Governamental:</h4>
+                <p>Iniciativas nacionais de P&D (ex: IDEAS, PLLuM). [cite: 252]</p>
+                <h4>Pipeline de Talentos:</h4>
+                <p>Engenheiros e programadores qualificados. [cite: 252]</p>
+                <div class="differentiator">
+                    <h4>Diferenciador Único:</h4>
+                    <p>Talento eficiente em termos de custos, rápido crescimento da adoção. [cite: 252]</p>
+                </div>
+            </div>
+            
+            <div class="hotspot-card">
+                <h3>Singapura</h3>
+                <h4>Fatores Culturais Chave:</h4>
+                <p>Orientada para a eficiência, adaptável. [cite: 252]</p>
+                <h4>Incentivos Econômicos:</h4>
+                <p>Cofinanciamento governamental, investimento em deep-tech. [cite: 252]</p>
+                <h4>Apoio Governamental:</h4>
+                <p>Forte estratégia estatal, setor público como utilizador líder. [cite: 252]</p>
+                <h4>Pipeline de Talentos:</h4>
+                <p>Desenvolvimento de talento STEM, atrai talento estrangeiro. [cite: 252]</p>
+                <div class="differentiator">
+                    <h4>Diferenciador Único:</h4>
+                    <p>Governo como principal motor de inovação, foco em cidades inteligentes. [cite: 252]</p>
+                </div>
+            </div>
+
+        </div> </main>
+
+    <footer>
+        <p>Revisado em: 23/05/2025 - Trabalho em andamento.</p> 
+        <p>© Luiz Peixoto de Siqueira Filho - OABRJ Nº 94719. Todos os direitos reservados à logo e identidade visual.</p> 
+        <p><a href="http://www.luizpeixoto.com">www.luizpeixoto.com</a> | <a href="mailto:dr@luizpeixoto.com">dr@luizpeixoto.com</a></p> 
+    </footer>
+
+    <script>
+        // Script de alternância de tema (o mesmo do index.html)
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                body.classList.add('dark-theme');
+                themeToggle.setAttribute('aria-label', 'Ativar tema claro');
+            } else {
+                body.classList.remove('dark-theme');
+                themeToggle.setAttribute('aria-label', 'Ativar tema escuro');
+            }
+        }
+
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme) {
+            applyTheme(savedTheme);
+        } else if (prefersDark) {
+            applyTheme('dark');
+        } else {
+            applyTheme('light');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            let newTheme = body.classList.contains('dark-theme') ? 'light' : 'dark';
+            applyTheme(newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+
+        // Script para funcionalidades da página
+        document.addEventListener('DOMContentLoaded', function() {
+            // KaTeX (se necessário em futuras evoluções desta página)
+            if (typeof renderMathInElement === 'function') {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: "$$", right: "$$", display: true}, {left: "$", right: "$", display: false},
+                        {left: "\\(", right: "\\)", display: false}, {left: "\\[", right: "\\]", display: true}
+                    ],
+                    throwOnError: false 
+                });
+            }
+
+            // Script para marcar link ativo na navegação
+            const links = document.querySelectorAll('.app-navigation .nav-links a');
+            let currentPath = window.location.pathname;
+            if (currentPath.startsWith('file:')) {
+                currentPath = currentPath.substring(currentPath.lastIndexOf('/') + 1);
+            } else {
+                if (currentPath.endsWith('/')) { currentPath += 'index.html'; }
+                currentPath = currentPath.substring(currentPath.lastIndexOf('/') + 1);
+            }
+            if (currentPath === '') currentPath = 'index.html';
+            links.forEach(link => {
+                const linkPath = link.getAttribute('href').split('/').pop();
+                if (linkPath === currentPath) { link.classList.add('active'); } 
+                else { link.classList.remove('active'); }
+            });
+        });
+    </script>
+</body>
+</html>
