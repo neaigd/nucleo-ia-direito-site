@@ -1,0 +1,159 @@
+/* Importação de Fonte (Exemplo com Google Fonts - Open Sans) */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+
+/* Variáveis CSS para fácil customização */
+:root {
+    --font-main: 'Open Sans', sans-serif;
+    
+    /* Cores do Tema Claro (Padrão) */
+    --color-gradient-start-light: #53F3AE; 
+    --color-gradient-end-light: #1F25B3;   
+    --color-text-primary-light: #000000;      
+    --color-text-secondary-light: #333333; /* Para texto um pouco menos proeminente */
+    --color-background-body-light: #f4f4f4; 
+    --color-background-content-light: #FFFFFF; 
+    --color-border-light: #dddddd; 
+    --color-link-light: var(--color-gradient-end-light); 
+    --color-link-hover-light: var(--color-gradient-start-light); 
+    --header-text-color-light: #000000; 
+    --button-text-color-light: #000000; 
+
+    /* Cores do Tema Escuro */
+    --color-gradient-start-dark: #53F3AE; 
+    --color-gradient-end-dark: #3840d1; /* Levemente ajustado para melhor visibilidade em tema escuro */  
+    --color-text-primary-dark: #e0e0e0;       
+    --color-text-secondary-dark: #b0b0b0;
+    --color-background-body-dark: #121212;  
+    --color-background-content-dark: #1e1e1e; 
+    --color-border-dark: #444444; 
+    --color-link-dark: var(--color-gradient-start-dark); 
+    --color-link-hover-dark: var(--color-gradient-end-dark); 
+    --header-text-color-dark: #FFFFFF; 
+    --button-text-color-dark: #FFFFFF; 
+
+    --header-height: 100px; /* Ajustado para a altura do logo otimizado */
+}
+
+/* Estilos Globais com Variáveis de Tema */
+body {
+    font-family: var(--font-main);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-background-body-light);
+    color: var(--color-text-secondary-light); /* Usando secondary para o corpo */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+header {
+    background-image: linear-gradient(to right, var(--color-gradient-start-light), var(--color-gradient-end-light));
+    color: var(--header-text-color-light);
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    /* justify-content: space-between; */ /* Ajustar conforme o layout final */
+    justify-content: flex-start; /* Alinha logo e título à esquerda */
+    gap: 20px; /* Espaço entre logo e título */
+    min-height: var(--header-height);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: background-image 0.3s, color 0.3s;
+}
+
+.logo-container {
+    flex-shrink: 0; 
+    display: flex; /* Para centralizar o logo verticalmente se necessário */
+    align-items: center;
+}
+
+#logo {
+    max-height: calc(var(--header-height) - 20px); /* Ex: 100px - 20px = 80px */
+    width: auto; 
+}
+
+.title-container {
+    /* flex-grow: 1; */ /* Descomentado para não empurrar para a direita com justify-content: flex-start */
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.6em; /* Ajustado para caber melhor com o logo */
+    font-weight: 700;
+    color: var(--header-text-color-light); /* Garante que use a cor do tema */
+}
+
+body.dark-theme header h1 {
+    color: var(--header-text-color-dark);
+}
+
+.highlight-ai {
+    /* Estilo para destacar "IA Generativa" no título */
+    /* Exemplo: font-weight: bold; ou uma cor específica se desejado */
+    /* No tema claro, o texto já é preto e pesado, então pode ser sutil */
+}
+
+nav.app-navigation {
+    background-color: #333; 
+    padding: 12px 20px;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+nav.app-navigation a {
+    color: #f0f0f0; 
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.95em;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+nav.app-navigation a:hover, nav.app-navigation a.active {
+    background-color: #555;
+    text-decoration: none;
+}
+
+main {
+    flex-grow: 1;
+    padding: 25px;
+    max-width: 1100px;
+    margin: 20px auto;
+    width: 90%;
+}
+
+.content-section {
+    background-color: var(--color-background-content-light);
+    color: var(--color-text-secondary-light); 
+    padding: 25px;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+    margin-bottom: 25px;
+    border: 1px solid var(--color-border-light);
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.content-section h2 {
+    color: var(--color-text-primary-light); 
+    border-bottom: 2px solid var(--color-gradient-start-light);
+    padding-bottom: 12px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.7em;
+    transition: color 0.3s, border-bottom-color 0.3s;
+}
+
+.content-section p {
+    margin-bottom: 15px;
+    color: var(--color-text-secondary-light); /* Garante que o texto do parágrafo use a cor correta do tema */
+}
+
+body.dark-theme .content-section p {
+    color: var(--color-text-secondary-dark);
+}
+
+
+button, .button-style { /* Adicionada classe .button-style para links parecerem bot

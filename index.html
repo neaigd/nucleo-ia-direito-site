@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Inicial - Núcleo de Estudos IA Generativa Aplicada ao Direito</title>
+    <link rel="stylesheet" href="css/style.css"> 
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="images/logoNucleo.svg" alt="Logo Núcleo de Estudos IA Generativa Aplicada ao Direito" id="logo">
+        </div>
+        <div class="title-container">
+            <h1>Núcleo de Estudos <span class="highlight-ai">IA Generativa</span> Aplicada ao Direito</h1>
+        </div>
+    </header>
+
+    <nav class="app-navigation">
+        <a href="index.html">Início</a>
+        <a href="app1_explorador_pilares.html">App 1</a>
+        </nav>
+
+    <main>
+        <section class="content-section">
+            <h2>Bem-vindo ao Nosso Espaço de Estudo!</h2>
+            <p>Este é um parágrafo de teste para o conteúdo principal da página. Aqui você poderá adicionar informações sobre o núcleo, objetivos, ou o conteúdo específico do primeiro mini-aplicativo que decidirmos implementar nesta página.</p>
+            <p>Teste o botão de alternância de tema no canto inferior direito!</p>
+            <button>Botão de Exemplo</button>
+        </section>
+    </main>
+
+    <button id="themeToggle" class="theme-toggle-button">Alternar Tema</button>
+
+    <footer>
+        <p>Revisado em: 23/05/2025 - Trabalho em andamento.</p> 
+        <p>&copy; Luiz Peixoto de Siqueira Filho - OABRJ Nº 94719. Todos os direitos reservados à logo e identidade visual.</p> 
+        <p><a href="http://www.luizpeixoto.com">www.luizpeixoto.com</a> | <a href="mailto:dr@luizpeixoto.com">dr@luizpeixoto.com</a></p> 
+    </footer>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const logo = document.getElementById('logo'); // Adicionado para possível alteração do logo
+
+        // Função para aplicar o tema
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                body.classList.add('dark-theme');
+                themeToggle.textContent = 'Tema Claro';
+                // Se você tiver uma versão do logo para tema escuro:
+                // logo.src = 'images/logoNucleo_dark.svg'; 
+            } else {
+                body.classList.remove('dark-theme');
+                themeToggle.textContent = 'Tema Escuro';
+                // Volta para o logo padrão:
+                // logo.src = 'images/logoNucleo.svg';
+            }
+        }
+
+        // Verifica se já existe uma preferência de tema salva
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme) {
+            applyTheme(currentTheme);
+        } else {
+            // Define um tema padrão se nenhum estiver salvo (opcional, pode ser o claro)
+            applyTheme('light'); // Ou 'dark' se preferir iniciar com o tema escuro
+        }
+
+        themeToggle.addEventListener('click', () => {
+            let newTheme = body.classList.contains('dark-theme') ? 'light' : 'dark';
+            applyTheme(newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+    </script>
+</body>
+</html>
