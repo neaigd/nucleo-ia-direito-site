@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/style.css"> 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" integrity="sha384-wcIxkf4k55AIcd2uy7g7WpVfAUcSwrrFRU8TTWELU7Ld84QCJWAARekL7SgMRSuB" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js" integrity="sha384-hIoBPJpTUs74ddyc4bFZSM1gAUAAN5CRbMpbgotgjMHHJaTDCB1UeFCAfPTL4VKB" crossorigin="anonymous"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js" integrity="sha384-gMqMDRY31GPoApRNGbAVH8yLQD9Iok9RzP72rYF6A734zZwo7rX/rXAAUa7qJjxH" crossorigin="anonymous"></script> {/* Removido o onload daqui */}
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js" integrity="sha384-gMqMDRY31GPoApRNGbAVH8yLQD9Iok9RzP72rYF6A734zZwo7rX/rXAAUa7qJjxH" crossorigin="anonymous"></script>
     <style>
         /* Estilos adicionais para a página app1 (mantidos da versão anterior) */
         .intro-video-section {
@@ -127,7 +127,7 @@
             background-color: rgba(255,255,255,0.06); 
         }
         .pillar-content ul {
-            list-style-type: none; /* Removido estilo de lista padrão para usar KaTeX */
+            list-style-type: none; 
             margin-left: 0;
             padding-left: 5px; 
         }
@@ -319,22 +319,27 @@
         // Script para funcionalidades da página
         document.addEventListener('DOMContentLoaded', function() {
             // Tenta renderizar KaTeX
-            if (typeof renderMathInElement === 'function') {
-                renderMathInElement(document.body, {
-                    delimiters: [
-                        {left: "$$", right: "$$", display: true}, // Para blocos de display
-                        {left: "$", right: "$", display: false},   // Para inline math
-                        {left: "\\(", right: "\\)", display: false}, // Alternativa para inline math
-                        {left: "\\[", right: "\\]", display: true}  // Alternativa para display math
-                    ],
-                    throwOnError: false // Não para a renderização se uma fórmula estiver errada
-                });
-                console.log("KaTeX render called by DOMContentLoaded script.");
-            } else {
-                console.error("KaTeX auto-render function 'renderMathInElement' is not defined. Ensure KaTeX scripts are loaded correctly and before this script runs.");
+            try {
+                if (typeof renderMathInElement === 'function') {
+                    renderMathInElement(document.body, {
+                        delimiters: [
+                            {left: "$$", right: "$$", display: true}, 
+                            {left: "$", right: "$", display: false},   
+                            {left: "\\(", right: "\\)", display: false}, 
+                            {left: "\\[", right: "\\]", display: true}  
+                        ],
+                        throwOnError: false 
+                    });
+                    console.log("KaTeX render successfully called by DOMContentLoaded script.");
+                } else {
+                    console.error("KaTeX auto-render function 'renderMathInElement' is not defined. Ensure KaTeX auto-render script is loaded and runs before this.");
+                }
+            } catch (e) {
+                console.error("Error during KaTeX rendering:", e);
             }
 
             // Script para marcar link ativo na navegação
+            // (código mantido da versão anterior)
             const links = document.querySelectorAll('.app-navigation .nav-links a');
             let currentPath = window.location.pathname;
             if (currentPath.startsWith('file:')) {
@@ -351,6 +356,7 @@
             });
 
             // Script para comportamento de Acordeão nos pilares
+            // (código mantido da versão anterior)
             const detailsElements = document.querySelectorAll('#pilaresContainer .pillar-section-wrapper details.pillar-section');
             detailsElements.forEach(details => {
                 details.removeAttribute('open'); 
