@@ -9,9 +9,9 @@
     --color-gradient-start-light: #53F3AE; 
     --color-gradient-end-light: #1F25B3;   
     --color-text-primary-light: #000000;      
-    --color-text-secondary-light: #333333; /* Para texto um pouco menos proeminente */
+    --color-text-secondary-light: #333333;
     --color-background-body-light: #f4f4f4; 
-    --color-background-content-light: #FFFFFF; 
+    /* --color-background-content-light: #FFFFFF; /* Comentado pois usaremos gradiente */
     --color-border-light: #dddddd; 
     --color-link-light: var(--color-gradient-end-light); 
     --color-link-hover-light: var(--color-gradient-start-light); 
@@ -20,28 +20,39 @@
 
     /* Cores do Tema Escuro */
     --color-gradient-start-dark: #53F3AE; 
-    --color-gradient-end-dark: #3840d1; /* Levemente ajustado para melhor visibilidade em tema escuro */  
+    --color-gradient-end-dark: #3840d1; 
     --color-text-primary-dark: #e0e0e0;       
     --color-text-secondary-dark: #b0b0b0;
     --color-background-body-dark: #121212;  
-    --color-background-content-dark: #1e1e1e; 
+    /* --color-background-content-dark: #1e1e1e; /* Comentado pois usaremos gradiente */
     --color-border-dark: #444444; 
     --color-link-dark: var(--color-gradient-start-dark); 
     --color-link-hover-dark: var(--color-gradient-end-dark); 
     --header-text-color-dark: #FFFFFF; 
     --button-text-color-dark: #FFFFFF; 
 
-    --header-height: 100px; /* Ajustado para a altura do logo otimizado */
+    /* Novos Gradientes para Conteúdo */
+    --gradient-content-1-light: linear-gradient(to right, var(--color-gradient-end-light), var(--color-gradient-start-light)); /* Azul -> Verde */
+    --gradient-content-2-light: linear-gradient(to right, var(--color-gradient-start-light), var(--color-gradient-end-light)); /* Verde -> Azul (para alternar) */
+
+    --gradient-content-1-dark: linear-gradient(to right, var(--color-gradient-end-dark), var(--color-gradient-start-dark)); /* Azul -> Verde (escuro) */
+    --gradient-content-2-dark: linear-gradient(to right, var(--color-gradient-start-dark), var(--color-gradient-end-dark)); /* Verde -> Azul (escuro) */
+    
+    /* Cores de texto para usar sobre os gradientes de conteúdo */
+    --text-on-gradient-content-light: #000000; /* Preto sobre o gradiente claro (ajustar se necessário) */
+    --text-on-gradient-content-dark: #FFFFFF;  /* Branco sobre o gradiente escuro (ajustar se necessário) */
+
+    --header-height: 100px;
 }
 
-/* Estilos Globais com Variáveis de Tema */
+/* Estilos Globais */
 body {
     font-family: var(--font-main);
     line-height: 1.6;
     margin: 0;
     padding: 0;
     background-color: var(--color-background-body-light);
-    color: var(--color-text-secondary-light); /* Usando secondary para o corpo */
+    color: var(--color-text-secondary-light);
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -54,9 +65,8 @@ header {
     padding: 10px 20px;
     display: flex;
     align-items: center;
-    /* justify-content: space-between; */ /* Ajustar conforme o layout final */
-    justify-content: flex-start; /* Alinha logo e título à esquerda */
-    gap: 20px; /* Espaço entre logo e título */
+    justify-content: flex-start; 
+    gap: 20px; 
     min-height: var(--header-height);
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     transition: background-image 0.3s, color 0.3s;
@@ -64,34 +74,28 @@ header {
 
 .logo-container {
     flex-shrink: 0; 
-    display: flex; /* Para centralizar o logo verticalmente se necessário */
+    display: flex; 
     align-items: center;
 }
 
 #logo {
-    max-height: calc(var(--header-height) - 20px); /* Ex: 100px - 20px = 80px */
+    max-height: calc(var(--header-height) - 20px); 
     width: auto; 
 }
 
 .title-container {
-    /* flex-grow: 1; */ /* Descomentado para não empurrar para a direita com justify-content: flex-start */
+    /* Estilos para o container do título, se necessário */
 }
 
 header h1 {
     margin: 0;
-    font-size: 1.6em; /* Ajustado para caber melhor com o logo */
+    font-size: 1.6em; 
     font-weight: 700;
-    color: var(--header-text-color-light); /* Garante que use a cor do tema */
-}
-
-body.dark-theme header h1 {
-    color: var(--header-text-color-dark);
+    color: var(--header-text-color-light); 
 }
 
 .highlight-ai {
     /* Estilo para destacar "IA Generativa" no título */
-    /* Exemplo: font-weight: bold; ou uma cor específica se desejado */
-    /* No tema claro, o texto já é preto e pesado, então pode ser sutil */
 }
 
 nav.app-navigation {
@@ -126,19 +130,24 @@ main {
 }
 
 .content-section {
-    background-color: var(--color-background-content-light);
-    color: var(--color-text-secondary-light); 
+    background-image: var(--gradient-content-1-light); 
+    color: var(--text-on-gradient-content-light); 
     padding: 25px;
     border-radius: 6px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.08);
     margin-bottom: 25px;
-    border: 1px solid var(--color-border-light);
-    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    /* border: 1px solid var(--color-border-light); /* Opcional com gradiente */
+    transition: background-image 0.3s, color 0.3s;
+}
+
+/* Para seções alternadas, se você usar mais de uma .content-section na mesma página */
+.content-section:nth-of-type(even) {
+    background-image: var(--gradient-content-2-light);
 }
 
 .content-section h2 {
-    color: var(--color-text-primary-light); 
-    border-bottom: 2px solid var(--color-gradient-start-light);
+    color: var(--text-on-gradient-content-light); /* Usa a cor definida para texto sobre gradiente */
+    border-bottom: 2px solid var(--color-gradient-start-light); /* Ajustar cor da borda para contraste com gradiente */
     padding-bottom: 12px;
     margin-top: 0;
     margin-bottom: 20px;
@@ -147,13 +156,134 @@ main {
 }
 
 .content-section p {
+    color: var(--text-on-gradient-content-light); /* Usa a cor definida para texto sobre gradiente */
     margin-bottom: 15px;
-    color: var(--color-text-secondary-light); /* Garante que o texto do parágrafo use a cor correta do tema */
 }
 
-body.dark-theme .content-section p {
+button, .button-style { 
+    display: inline-block;
+    background-image: linear-gradient(to right, var(--color-gradient-start-light), var(--color-gradient-end-light));
+    color: var(--button-text-color-light); 
+    border: none;
+    padding: 12px 22px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: var(--font-main);
+    font-weight: bold;
+    font-size: 1em;
+    text-decoration: none; 
+    text-align: center;
+    transition: opacity 0.3s, background-image 0.3s, color 0.3s;
+}
+
+button:hover, .button-style:hover {
+    opacity: 0.85;
+    text-decoration: none; 
+}
+
+footer {
+    background-color: #2d2d2d; 
+    color: #c0c0c0; 
+    text-align: center;
+    padding: 20px;
+    font-size: 0.85em;
+    border-top: 3px solid var(--color-gradient-start-light); 
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+footer a {
+    color: var(--color-gradient-start-light);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+footer a:hover {
+    text-decoration: underline;
+    color: var(--color-gradient-end-light);
+}
+
+/* ------------------------- */
+/* --- ESTILOS TEMA ESCURO --- */
+/* ------------------------- */
+
+body.dark-theme {
+    background-color: var(--color-background-body-dark);
     color: var(--color-text-secondary-dark);
 }
 
+body.dark-theme header {
+    background-image: linear-gradient(to right, var(--color-gradient-start-dark), var(--color-gradient-end-dark));
+}
 
-button, .button-style { /* Adicionada classe .button-style para links parecerem bot
+body.dark-theme header h1 {
+    color: var(--header-text-color-dark);
+}
+
+body.dark-theme .content-section {
+    background-image: var(--gradient-content-1-dark);
+    color: var(--text-on-gradient-content-dark);
+    /* border: 1px solid var(--color-border-dark); /* Opcional com gradiente */
+}
+
+body.dark-theme .content-section:nth-of-type(even) {
+    background-image: var(--gradient-content-2-dark);
+}
+
+body.dark-theme .content-section h2 {
+    color: var(--text-on-gradient-content-dark);
+    border-bottom: 2px solid var(--color-gradient-start-dark); /* Ajustar cor da borda */
+}
+
+body.dark-theme .content-section p {
+    color: var(--text-on-gradient-content-dark);
+}
+
+body.dark-theme button, body.dark-theme .button-style {
+    background-image: linear-gradient(to right, var(--color-gradient-start-dark), var(--color-gradient-end-dark));
+    color: var(--button-text-color-dark);
+}
+
+body.dark-theme footer {
+    border-top: 3px solid var(--color-gradient-start-dark);
+}
+
+body.dark-theme footer a {
+    color: var(--color-gradient-start-dark);
+}
+
+body.dark-theme footer a:hover {
+    color: var(--color-gradient-end-dark);
+}
+
+/* Botão de Alternância de Tema */
+.theme-toggle-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 15px;
+    background-color: #444; 
+    color: white;
+    border: 1px solid #666;
+    border-radius: 50px; 
+    cursor: pointer;
+    z-index: 1000;
+    font-size: 0.9em;
+    box-shadow: 0px 2px 5px rgba(0,0,0,0.2);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-theme .theme-toggle-button {
+    background-color: #f0f0f0; 
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+/* Melhorias para o logo no tema escuro, se necessário */
+/*
+body.dark-theme #logo {
+    // filter: drop-shadow(0 0 1px rgba(255,255,255,0.7));
+}
+*/
