@@ -7,26 +7,23 @@
     <link rel="stylesheet" href="css/style.css"> 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" integrity="sha384-wcIxkf4k55AIcd2uy7g7WpVfAUcSwrrFRU8TTWELU7Ld84QCJWAARekL7SgMRSuB" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js" integrity="sha384-hIoBPJpTUs74ddyc4bFZSM1gAUAAN5CRbMpbgotgjMHHJaTDCB1UeFCAfPTL4VKB" crossorigin="anonymous"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js" integrity="sha384-gMqMDRY31GPoApRNGbAVH8yLQD9Iok9RzP72rYF6A734zZwo7rX/rXAAUa7qJjxH" crossorigin="anonymous"
-        onload="renderMathInElement(document.body, { delimiters: [ {left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}, {left: '\\(', right: '\\)', display: false}, {left: '\\[', right: '\\]', display: true} ], throwOnError: false });"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js" integrity="sha384-gMqMDRY31GPoApRNGbAVH8yLQD9Iok9RzP72rYF6A734zZwo7rX/rXAAUa7qJjxH" crossorigin="anonymous"></script>
     <style>
-        /* Estilos adicionais para a página app1 */
+        /* Estilos adicionais para a página app1 (mantidos da versão anterior) */
         .intro-video-section {
             margin-bottom: 30px;
-            padding: 25px; /* Aumentado o padding */
-            border-radius: 8px; /* Consistente com .content-section */
-            /* O fundo será herdado de .content-section se estiver dentro de uma */
-            /* Ou pode ter seu próprio estilo se for uma seção separada no main */
+            padding: 25px; 
+            border-radius: 8px; 
         }
         .video-container {
             position: relative;
             width: 100%;
-            max-width: 720px; /* Limitar largura máxima do vídeo */
-            margin: 25px auto; /* Centralizar e adicionar margem */
+            max-width: 720px; 
+            margin: 25px auto; 
             padding-bottom: 56.25%; 
             height: 0;
             overflow: hidden;
-            border-radius: 8px; /* Cantos arredondados para o container do vídeo */
+            border-radius: 8px; 
             box-shadow: 0 4px 8px rgba(0,0,0,0.15);
         }
         body.dark-theme .video-container {
@@ -42,20 +39,20 @@
         }
 
         .pillar-section {
-            margin-bottom: 15px; /* Espaçamento entre pilares */
+            margin-bottom: 15px; 
             padding: 0; 
             background-color: rgba(255,255,255,0.03); 
-            border-radius: 8px; /* Aumentado */
+            border-radius: 8px; 
             border: 1px solid transparent; 
         }
         body.dark-theme .pillar-section {
-            background-color: rgba(0,0,0,0.1); /* Um pouco mais de contraste */
+            background-color: rgba(0,0,0,0.1); 
         }
         .pillar-section summary {
             font-size: 1.3em; 
             font-weight: bold;
             cursor: pointer;
-            padding: 18px 25px; /* Aumentado padding */
+            padding: 18px 25px; 
             color: var(--text-on-gradient-content-light); 
             background-color: transparent; 
             border-radius: 8px; 
@@ -66,8 +63,8 @@
         .pillar-section summary::after { 
             content: '+';
             position: absolute;
-            right: 25px; /* Ajustado */
-            font-size: 1.3em; /* Aumentado */
+            right: 25px; 
+            font-size: 1.3em; 
             font-weight: bold;
             transition: transform 0.3s ease;
         }
@@ -77,7 +74,7 @@
         }
         .pillar-section[open] summary {
              border-bottom: 1px solid rgba(0,0,0,0.1);
-             border-bottom-left-radius: 0; /* Para o summary aberto não ter borda inferior arredondada */
+             border-bottom-left-radius: 0; 
              border-bottom-right-radius: 0;
         }
         body.dark-theme .pillar-section[open] summary {
@@ -87,55 +84,55 @@
             color: var(--text-on-gradient-content-dark); 
         }
         .pillar-section summary:hover {
-            opacity: 1; /* Opacidade total no hover */
+            opacity: 1; 
             background-color: rgba(0,0,0,0.05);
         }
         body.dark-theme .pillar-section summary:hover {
             background-color: rgba(255,255,255,0.05);
         }
         .pillar-content {
-            padding: 20px 25px 25px 25px; /* Ajustado padding */
+            padding: 20px 25px 25px 25px; 
         }
         .pillar-content blockquote {
             font-style: italic;
             color: var(--text-on-gradient-content-light);
             opacity: 0.9;
-            border-left: 4px solid var(--color-logo-green); /* Borda mais espessa */
-            padding-left: 20px; /* Aumentado padding */
-            margin: 20px 0; /* Aumentado margem */
+            border-left: 4px solid var(--color-logo-green); 
+            padding-left: 20px; 
+            margin: 20px 0; 
         }
         body.dark-theme .pillar-content blockquote {
             color: var(--text-on-gradient-content-dark);
             border-left-color: var(--color-logo-green);
         }
         .pillar-content h4 {
-            margin-top: 25px; /* Aumentado */
+            margin-top: 25px; 
             margin-bottom: 10px; 
             color: var(--text-on-gradient-content-light);
-            font-size: 1.15em; /* Levemente aumentado */
+            font-size: 1.15em; 
             font-weight: bold;
         }
         body.dark-theme .pillar-content h4 {
             color: var(--text-on-gradient-content-dark);
         }
         .pillar-content .formula-block {
-            margin: 20px 0; /* Aumentado margem */
-            padding: 20px; /* Aumentado padding */
+            margin: 20px 0; 
+            padding: 20px; 
             background-color: rgba(0,0,0,0.04); 
-            border-radius: 6px; /* Aumentado */
+            border-radius: 6px; 
             overflow-x: auto; 
             font-size: 1.15em; 
         }
         body.dark-theme .pillar-content .formula-block {
-            background-color: rgba(255,255,255,0.06); /* Um pouco mais de contraste */
+            background-color: rgba(255,255,255,0.06); 
         }
         .pillar-content ul {
             list-style-type: disc;
-            margin-left: 25px; /* Aumentado */
+            margin-left: 25px; 
             padding-left: 10px; 
         }
         .pillar-content ul li {
-            margin-bottom: 8px; /* Aumentado */
+            margin-bottom: 8px; 
         }
     </style>
 </head>
@@ -162,7 +159,8 @@
     </nav>
 
     <main>
-        <section class="content-section intro-video-section"> <h2>A Gênese: Uma Visão Enigmática</h2>
+        <section class="content-section intro-video-section">
+            <h2>A Gênese: Uma Visão Enigmática</h2>
             <p>Mergulhe conosco na origem desta jornada. Tudo começou com o vídeo instigante que você verá a seguir, cujas reflexões e provocações serviram de centelha para uma pesquisa aprofundada sobre o futuro da interação humano-computador e o papel transformador da Inteligência Artificial. As análises e os "mini-aplicativos" interativos que se desdobram a partir daqui são o fruto dessa exploração.</p>
             <p>Esta plataforma é um vibrante exercício de <strong>vibecoding</strong>: uma fusão criativa onde aplicamos as mais modernas ferramentas de Inteligência Artificial para impulsionar automações, análises críticas e pesquisas avançadas. Estamos dedicados a desenvolver um conteúdo interativo, dinâmico e personalizado, especialmente projetado para enriquecer a experiência dos membros do nosso Núcleo de Estudos e fomentar um debate qualificado sobre a IA Generativa Aplicada ao Direito.</p>
             
@@ -171,11 +169,14 @@
             </div>
         </section>
 
-        <section class="content-section"> <h2>Explorador Interativo dos Pilares da Transformação da IA</h2>
+        <section class="content-section">
+            <h2>Explorador Interativo dos Pilares da Transformação da IA</h2>
             <p>Explore os quatro pilares fundamentais que moldam a transformação da Interação Humano-Computador (IHC) impulsionada pela Inteligência Artificial. Clique em cada pilar para expandir e ver detalhes, incluindo a formalização lógica e as evidências da pesquisa.</p>
         </section>
 
-        <div id="pilaresContainer"> <section class="content-section pillar-section-wrapper"> <details class="pillar-section"> 
+        <div id="pilaresContainer">
+            <section class="content-section pillar-section-wrapper">
+                <details class="pillar-section"> 
                     <summary>Pilar I: Evolução Paradigmática de Dispositivos e Interação</summary>
                     <div class="pillar-content">
                         <h4>Trecho Original Inspirador:</h4>
@@ -317,21 +318,31 @@
 
         // Script para funcionalidades da página
         document.addEventListener('DOMContentLoaded', function() {
-            // KaTeX auto-render é chamado pelo atributo 'onload' no script tag do KaTeX auto-render.
-            // Não é necessário chamar renderMathInElement() manualmente aqui se o onload estiver funcionando.
-            // Apenas para garantir, podemos adicionar uma verificação e chamada se o onload falhar por algum motivo.
-            if (typeof renderMathInElement !== 'function' && window.katex) {
-                 console.warn("KaTeX auto-render 'onload' might not have fired. Attempting manual render.");
-                 renderMathInElement(document.body, {
-                     delimiters: [
-                         {left: "$$", right: "$$", display: true}, {left: "$", right: "$", display: false},
-                         {left: "\\(", right: "\\)", display: false}, {left: "\\[", right: "\\]", display: true}
-                     ],
-                     throwOnError: false 
-                 });
-            } else if (!window.katex) {
-                console.error("KaTeX core script (katex.min.js) not loaded.");
+            // Tenta renderizar KaTeX
+            // O script auto-render.min.js do KaTeX já tem um 'onload' que chama renderMathInElement.
+            // Esta verificação é um fallback caso algo dê errado com o onload ou a ordem de carregamento.
+            function attemptKatexRender() {
+                if (typeof renderMathInElement === 'function') {
+                    renderMathInElement(document.body, {
+                        delimiters: [
+                            {left: "$$", right: "$$", display: true}, {left: "$", right: "$", display: false},
+                            {left: "\\(", right: "\\)", display: false}, {left: "\\[", right: "\\]", display: true}
+                        ],
+                        throwOnError: false 
+                    });
+                    console.log("KaTeX render attempted by DOMContentLoaded script.");
+                } else if (window.katex) {
+                    // Se renderMathInElement não estiver definida, mas katex está, o auto-render pode não ter sido carregado/executado
+                    console.warn("KaTeX auto-render function 'renderMathInElement' not found, but KaTeX core is loaded. Auto-render script might have issues or did not run via its onload.");
+                }
+                 else {
+                    console.error("KaTeX core (katex.min.js) or auto-render script not loaded.");
+                }
             }
+            
+            // Chama a tentativa de renderização. Se o onload do auto-render já funcionou, esta chamada não fará mal.
+            // Se não funcionou, esta é uma segunda chance.
+            attemptKatexRender();
 
 
             // Script para marcar link ativo na navegação
@@ -351,7 +362,7 @@
             });
 
             // Script para comportamento de Acordeão nos pilares
-            const detailsElements = document.querySelectorAll('#pilaresContainer .pillar-section');
+            const detailsElements = document.querySelectorAll('#pilaresContainer .pillar-section-wrapper details.pillar-section');
             detailsElements.forEach(details => {
                 details.removeAttribute('open'); 
                 details.addEventListener('toggle', event => {
