@@ -5,42 +5,50 @@
 :root {
     --font-main: 'Open Sans', sans-serif;
     
-    /* Cores do Tema Claro (Padrão) */
-    --color-gradient-start-light: #53F3AE; 
-    --color-gradient-end-light: #1F25B3;   
-    --color-text-primary-light: #000000;      
+    /* Cores Base do Logo */
+    --color-logo-green: #53F3AE; 
+    --color-logo-blue: #1F25B3;   
+
+    /* Tema Claro (Padrão) */
+    --color-text-primary-light: #1a1a1a; /* Preto um pouco mais suave */      
     --color-text-secondary-light: #333333;
-    --color-background-body-light: #f4f4f4; 
-    /* --color-background-content-light: #FFFFFF; /* Comentado pois usaremos gradiente */
-    --color-border-light: #dddddd; 
-    --color-link-light: var(--color-gradient-end-light); 
-    --color-link-hover-light: var(--color-gradient-start-light); 
+    --color-background-body-light: #f0f2f5; /* Um cinza muito claro, mais suave */
+    --color-border-light: #d9d9d9; 
+    --color-link-light: var(--color-logo-blue); 
+    --color-link-hover-light: var(--color-logo-green); 
     --header-text-color-light: #000000; 
     --button-text-color-light: #000000; 
+    --button-text-on-dark-bg-light: #FFFFFF; /* Para botões com fundo escuro no tema claro */
 
-    /* Cores do Tema Escuro */
-    --color-gradient-start-dark: #53F3AE; 
-    --color-gradient-end-dark: #3840d1; 
-    --color-text-primary-dark: #e0e0e0;       
-    --color-text-secondary-dark: #b0b0b0;
+    /* Tema Escuro */
+    --color-text-primary-dark: #e6e6e6; /* Branco suave */      
+    --color-text-secondary-dark: #b3b3b3; /* Cinza claro */
     --color-background-body-dark: #121212;  
-    /* --color-background-content-dark: #1e1e1e; /* Comentado pois usaremos gradiente */
-    --color-border-dark: #444444; 
-    --color-link-dark: var(--color-gradient-start-dark); 
-    --color-link-hover-dark: var(--color-gradient-end-dark); 
+    --color-background-content-dark: #1e1e1e; /* Fundo da seção de conteúdo no tema escuro */
+    --color-border-dark: #3a3a3a; 
+    --color-link-dark: var(--color-logo-green); 
+    --color-link-hover-dark: var(--color-logo-blue); 
     --header-text-color-dark: #FFFFFF; 
     --button-text-color-dark: #FFFFFF; 
+    --button-text-on-light-bg-dark: #000000; /* Para botões com fundo claro no tema escuro */
 
-    /* Novos Gradientes para Conteúdo */
-    --gradient-content-1-light: linear-gradient(to right, var(--color-gradient-end-light), var(--color-gradient-start-light)); /* Azul -> Verde */
-    --gradient-content-2-light: linear-gradient(to right, var(--color-gradient-start-light), var(--color-gradient-end-light)); /* Verde -> Azul (para alternar) */
+    /* Gradientes para Cabeçalho */
+    --gradient-header-light: linear-gradient(to right, var(--color-logo-green), var(--color-logo-blue));
+    --gradient-header-dark: linear-gradient(to right, var(--color-logo-green), var(--color-logo-blue)); /* Mantendo o mesmo gradiente do logo para o header */
 
-    --gradient-content-1-dark: linear-gradient(to right, var(--color-gradient-end-dark), var(--color-gradient-start-dark)); /* Azul -> Verde (escuro) */
-    --gradient-content-2-dark: linear-gradient(to right, var(--color-gradient-start-dark), var(--color-gradient-end-dark)); /* Verde -> Azul (escuro) */
+    /* Gradientes Diagonais para Conteúdo */
+    /* Seção 1: Azul -> Verde (invertido e diagonal) */
+    --gradient-content-1-light: linear-gradient(135deg, var(--color-logo-blue), var(--color-logo-green)); 
+    --gradient-content-1-dark: linear-gradient(135deg, var(--color-logo-blue), var(--color-logo-green)); /* Pode ser o mesmo ou um mais escuro */
     
+    /* Seção 2: Verde -> Azul (original e diagonal - para alternar) */
+    --gradient-content-2-light: linear-gradient(135deg, var(--color-logo-green), var(--color-logo-blue)); 
+    --gradient-content-2-dark: linear-gradient(135deg, var(--color-logo-green), var(--color-logo-blue));
+
     /* Cores de texto para usar sobre os gradientes de conteúdo */
-    --text-on-gradient-content-light: #000000; /* Preto sobre o gradiente claro (ajustar se necessário) */
-    --text-on-gradient-content-dark: #FFFFFF;  /* Branco sobre o gradiente escuro (ajustar se necessário) */
+    /* Ajustar estas cores cuidadosamente para garantir legibilidade sobre os gradientes */
+    --text-on-gradient-content-light: #000000; 
+    --text-on-gradient-content-dark: #FFFFFF;  
 
     --header-height: 100px;
 }
@@ -56,11 +64,11 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 header {
-    background-image: linear-gradient(to right, var(--color-gradient-start-light), var(--color-gradient-end-light));
+    background-image: var(--gradient-header-light);
     color: var(--header-text-color-light);
     padding: 10px 20px;
     display: flex;
@@ -69,7 +77,7 @@ header {
     gap: 20px; 
     min-height: var(--header-height);
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    transition: background-image 0.3s, color 0.3s;
+    transition: background-image 0.3s ease, color 0.3s ease;
 }
 
 .logo-container {
@@ -83,20 +91,17 @@ header {
     width: auto; 
 }
 
-.title-container {
-    /* Estilos para o container do título, se necessário */
-}
+.title-container { /* Sem estilos específicos por enquanto */ }
 
 header h1 {
     margin: 0;
     font-size: 1.6em; 
     font-weight: 700;
     color: var(--header-text-color-light); 
+    transition: color 0.3s ease;
 }
 
-.highlight-ai {
-    /* Estilo para destacar "IA Generativa" no título */
-}
+.highlight-ai { /* Sem estilos específicos por enquanto */ }
 
 nav.app-navigation {
     background-color: #333; 
@@ -113,7 +118,7 @@ nav.app-navigation a {
     font-size: 0.95em;
     padding: 8px 12px;
     border-radius: 4px;
-    transition: background-color 0.2s;
+    transition: background-color 0.2s ease;
 }
 
 nav.app-navigation a:hover, nav.app-navigation a.active {
@@ -133,36 +138,36 @@ main {
     background-image: var(--gradient-content-1-light); 
     color: var(--text-on-gradient-content-light); 
     padding: 25px;
-    border-radius: 6px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.08);
-    margin-bottom: 25px;
-    /* border: 1px solid var(--color-border-light); /* Opcional com gradiente */
-    transition: background-image 0.3s, color 0.3s;
+    border-radius: 8px; /* Aumentado o raio */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Sombra um pouco mais pronunciada */
+    margin-bottom: 30px; /* Aumentado o espaçamento */
+    transition: background-image 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Para seções alternadas, se você usar mais de uma .content-section na mesma página */
 .content-section:nth-of-type(even) {
     background-image: var(--gradient-content-2-light);
 }
 
 .content-section h2 {
-    color: var(--text-on-gradient-content-light); /* Usa a cor definida para texto sobre gradiente */
-    border-bottom: 2px solid var(--color-gradient-start-light); /* Ajustar cor da borda para contraste com gradiente */
+    color: var(--text-on-gradient-content-light); 
+    border-bottom: 2px solid var(--text-on-gradient-content-light); /* Borda usa a cor do texto para contraste */
     padding-bottom: 12px;
     margin-top: 0;
     margin-bottom: 20px;
-    font-size: 1.7em;
-    transition: color 0.3s, border-bottom-color 0.3s;
+    font-size: 1.8em; /* Aumentado o título da seção */
+    transition: color 0.3s ease, border-bottom-color 0.3s ease;
 }
 
 .content-section p {
-    color: var(--text-on-gradient-content-light); /* Usa a cor definida para texto sobre gradiente */
+    color: var(--text-on-gradient-content-light); 
     margin-bottom: 15px;
+    font-size: 1.05em; /* Levemente aumentado para melhor leitura */
+    transition: color 0.3s ease;
 }
 
 button, .button-style { 
     display: inline-block;
-    background-image: linear-gradient(to right, var(--color-gradient-start-light), var(--color-gradient-end-light));
+    background-image: linear-gradient(to right, var(--color-logo-green), var(--color-logo-blue)); /* Usando cores base do logo */
     color: var(--button-text-color-light); 
     border: none;
     padding: 12px 22px;
@@ -173,7 +178,7 @@ button, .button-style {
     font-size: 1em;
     text-decoration: none; 
     text-align: center;
-    transition: opacity 0.3s, background-image 0.3s, color 0.3s;
+    transition: opacity 0.3s ease, background-image 0.3s ease, color 0.3s ease;
 }
 
 button:hover, .button-style:hover {
@@ -187,22 +192,21 @@ footer {
     text-align: center;
     padding: 20px;
     font-size: 0.85em;
-    border-top: 3px solid var(--color-gradient-start-light); 
+    border-top: 3px solid var(--color-logo-green); 
+    transition: border-top-color 0.3s ease;
 }
 
-footer p {
-    margin: 5px 0;
-}
+footer p { margin: 5px 0; }
 
 footer a {
-    color: var(--color-gradient-start-light);
+    color: var(--color-logo-green);
     text-decoration: none;
-    transition: color 0.3s;
+    transition: color 0.3s ease;
 }
 
 footer a:hover {
     text-decoration: underline;
-    color: var(--color-gradient-end-light);
+    color: var(--color-logo-blue);
 }
 
 /* ------------------------- */
@@ -215,7 +219,7 @@ body.dark-theme {
 }
 
 body.dark-theme header {
-    background-image: linear-gradient(to right, var(--color-gradient-start-dark), var(--color-gradient-end-dark));
+    background-image: var(--gradient-header-dark);
 }
 
 body.dark-theme header h1 {
@@ -225,7 +229,7 @@ body.dark-theme header h1 {
 body.dark-theme .content-section {
     background-image: var(--gradient-content-1-dark);
     color: var(--text-on-gradient-content-dark);
-    /* border: 1px solid var(--color-border-dark); /* Opcional com gradiente */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Sombra mais escura para tema escuro */
 }
 
 body.dark-theme .content-section:nth-of-type(even) {
@@ -234,7 +238,7 @@ body.dark-theme .content-section:nth-of-type(even) {
 
 body.dark-theme .content-section h2 {
     color: var(--text-on-gradient-content-dark);
-    border-bottom: 2px solid var(--color-gradient-start-dark); /* Ajustar cor da borda */
+    border-bottom: 2px solid var(--text-on-gradient-content-dark); /* Borda usa a cor do texto */
 }
 
 body.dark-theme .content-section p {
@@ -242,48 +246,81 @@ body.dark-theme .content-section p {
 }
 
 body.dark-theme button, body.dark-theme .button-style {
-    background-image: linear-gradient(to right, var(--color-gradient-start-dark), var(--color-gradient-end-dark));
+    background-image: linear-gradient(to right, var(--color-logo-green), var(--color-logo-blue)); /* Mantém o gradiente do logo para botões */
     color: var(--button-text-color-dark);
 }
 
+/* Caso especial: se o botão estiver sobre um fundo claro no tema escuro (improvável com a estrutura atual) */
+/*
+body.dark-theme .content-section-light-bg button {
+    color: var(--button-text-on-light-bg-dark);
+}
+*/
+
 body.dark-theme footer {
-    border-top: 3px solid var(--color-gradient-start-dark);
+    border-top: 3px solid var(--color-logo-green); /* Mantém a cor verde do logo */
 }
 
 body.dark-theme footer a {
-    color: var(--color-gradient-start-dark);
+    color: var(--color-logo-green);
 }
 
 body.dark-theme footer a:hover {
-    color: var(--color-gradient-end-dark);
+    color: var(--color-logo-blue);
 }
 
-/* Botão de Alternância de Tema */
+/* Botão de Alternância de Tema com Ícone SVG */
 .theme-toggle-button {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    padding: 10px 15px;
     background-color: #444; 
-    color: white;
+    color: white; /* A cor do SVG será herdada ou definida explicitamente */
     border: 1px solid #666;
-    border-radius: 50px; 
+    border-radius: 50%; /* Para um botão redondo */
+    width: 50px;
+    height: 50px;
+    padding: 0; /* Removido padding para o SVG preencher */
     cursor: pointer;
     z-index: 1000;
-    font-size: 0.9em;
     box-shadow: 0px 2px 5px rgba(0,0,0,0.2);
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+.theme-toggle-button:hover {
+    transform: scale(1.1);
+}
+
+.theme-toggle-button svg {
+    width: 24px; /* Tamanho do ícone */
+    height: 24px;
+    fill: currentColor; /* O SVG herdará a cor do texto do botão */
+}
+
+/* Estilo do botão no tema escuro */
 body.dark-theme .theme-toggle-button {
     background-color: #f0f0f0; 
-    color: #333;
+    color: #333; /* Cor do ícone SVG no tema escuro */
     border: 1px solid #ccc;
 }
 
-/* Melhorias para o logo no tema escuro, se necessário */
+/* Esconder o ícone que não está ativo */
+.theme-toggle-button .icon-sun { display: none; }
+.theme-toggle-button .icon-moon { display: block; } /* Lua visível por padrão (se o tema claro for padrão) */
+
+body.dark-theme .theme-toggle-button .icon-sun { display: block; } /* Sol visível no tema escuro */
+body.dark-theme .theme-toggle-button .icon-moon { display: none; }
+
+
+/* Ajustes para o logo no tema escuro, se o SVG for preto */
+/* Se o seu logoNucleo.svg tem elementos pretos, eles podem sumir no header escuro.
+   Uma solução é ter um SVG que use 'currentColor' ou classes para estilização,
+   ou aplicar um filtro se for simples. */
 /*
 body.dark-theme #logo {
-    // filter: drop-shadow(0 0 1px rgba(255,255,255,0.7));
+    filter: invert(1) hue-rotate(180deg) brightness(1.5) contrast(1.2); // Exemplo de filtro para inverter e ajustar
 }
 */
