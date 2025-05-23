@@ -318,32 +318,19 @@
 
         // Script para funcionalidades da página
         document.addEventListener('DOMContentLoaded', function() {
-            // Tenta renderizar KaTeX
-            // O script auto-render.min.js do KaTeX já tem um 'onload' que chama renderMathInElement.
-            // Esta verificação é um fallback caso algo dê errado com o onload ou a ordem de carregamento.
-            function attemptKatexRender() {
-                if (typeof renderMathInElement === 'function') {
-                    renderMathInElement(document.body, {
-                        delimiters: [
-                            {left: "$$", right: "$$", display: true}, {left: "$", right: "$", display: false},
-                            {left: "\\(", right: "\\)", display: false}, {left: "\\[", right: "\\]", display: true}
-                        ],
-                        throwOnError: false 
-                    });
-                    console.log("KaTeX render attempted by DOMContentLoaded script.");
-                } else if (window.katex) {
-                    // Se renderMathInElement não estiver definida, mas katex está, o auto-render pode não ter sido carregado/executado
-                    console.warn("KaTeX auto-render function 'renderMathInElement' not found, but KaTeX core is loaded. Auto-render script might have issues or did not run via its onload.");
-                }
-                 else {
-                    console.error("KaTeX core (katex.min.js) or auto-render script not loaded.");
-                }
+            // Chama a renderização do KaTeX explicitamente
+            if (typeof renderMathInElement === 'function') {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: "$$", right: "$$", display: true}, {left: "$", right: "$", display: false},
+                        {left: "\\(", right: "\\)", display: false}, {left: "\\[", right: "\\]", display: true}
+                    ],
+                    throwOnError: false 
+                });
+                console.log("KaTeX render called by DOMContentLoaded script.");
+            } else {
+                console.error("KaTeX auto-render function 'renderMathInElement' is not defined. Ensure KaTeX scripts are loaded correctly.");
             }
-            
-            // Chama a tentativa de renderização. Se o onload do auto-render já funcionou, esta chamada não fará mal.
-            // Se não funcionou, esta é uma segunda chance.
-            attemptKatexRender();
-
 
             // Script para marcar link ativo na navegação
             const links = document.querySelectorAll('.app-navigation .nav-links a');
