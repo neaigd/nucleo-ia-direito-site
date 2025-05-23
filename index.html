@@ -17,60 +17,96 @@
     </header>
 
     <nav class="app-navigation">
-        <a href="index.html">Início</a>
-        <a href="app1_explorador_pilares.html">App 1</a>
-        </nav>
+        <div class="nav-links">
+            <a href="index.html" class="active">Início</a>
+            <a href="app1_explorador_pilares.html">App 1</a>
+            </div>
+        <button id="themeToggle" class="theme-toggle-button-nav" aria-label="Alternar tema">
+            <img src="images/icons_usados/moon.svg" alt="Ícone Lua" class="icon-moon theme-icon">
+            <img src="images/icons_usados/sun.svg" alt="Ícone Sol" class="icon-sun theme-icon">
+        </button>
+    </nav>
 
     <main>
         <section class="content-section">
             <h2>Bem-vindo ao Nosso Espaço de Estudo!</h2>
             <p>Este é um parágrafo de teste para o conteúdo principal da página. Aqui você poderá adicionar informações sobre o núcleo, objetivos, ou o conteúdo específico do primeiro mini-aplicativo que decidirmos implementar nesta página.</p>
-            <p>Teste o botão de alternância de tema no canto inferior direito!</p>
+            <p>O botão de alternância de tema agora está na barra de navegação!</p>
             <button>Botão de Exemplo</button>
         </section>
+        
+        <section class="content-section">
+            <h2>Outra Seção para Testar Gradiente</h2>
+            <p>Esta seção deve ter o gradiente alternado (Verde para Azul na diagonal, por exemplo, se a anterior foi Azul para Verde) para demonstrar a funcionalidade.</p>
+            <p>Lembre-se de limpar o cache do seu navegador (Ctrl+Shift+R ou Cmd+Shift+R) para ver as alterações mais recentes no CSS.</p>
+        </section>
     </main>
-
-    <button id="themeToggle" class="theme-toggle-button">Alternar Tema</button>
 
     <footer>
         <p>Revisado em: 23/05/2025 - Trabalho em andamento.</p> 
         <p>&copy; Luiz Peixoto de Siqueira Filho - OABRJ Nº 94719. Todos os direitos reservados à logo e identidade visual.</p> 
-        <p><a href="http://www.luizpeixoto.com">www.luizpeixoto.com</a> | <a href="mailto:dr@luizpeixoto.com">dr@luizpeixoto.com</a></p> 
+        <p><a href="http://www.luizpeixoto.com">www.luizpeixoto.com</a> | <a href="mailto:luizpeixoto.adv@gmail.com">luizpeixoto.adv@gmail.com</a></p> 
     </footer>
 
     <script>
         const themeToggle = document.getElementById('themeToggle');
         const body = document.body;
-        const logo = document.getElementById('logo'); // Adicionado para possível alteração do logo
-
-        // Função para aplicar o tema
+        
         function applyTheme(theme) {
             if (theme === 'dark') {
                 body.classList.add('dark-theme');
-                themeToggle.textContent = 'Tema Claro';
-                // Se você tiver uma versão do logo para tema escuro:
-                // logo.src = 'images/logoNucleo_dark.svg'; 
+                themeToggle.setAttribute('aria-label', 'Ativar tema claro');
             } else {
                 body.classList.remove('dark-theme');
-                themeToggle.textContent = 'Tema Escuro';
-                // Volta para o logo padrão:
-                // logo.src = 'images/logoNucleo.svg';
+                themeToggle.setAttribute('aria-label', 'Ativar tema escuro');
             }
         }
 
-        // Verifica se já existe uma preferência de tema salva
-        const currentTheme = localStorage.getItem('theme');
-        if (currentTheme) {
-            applyTheme(currentTheme);
+        // Verifica e aplica o tema salvo ou o padrão do sistema/preferência
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme) {
+            applyTheme(savedTheme);
+        } else if (prefersDark) {
+            applyTheme('dark'); // Define o tema escuro como padrão se o usuário preferir
         } else {
-            // Define um tema padrão se nenhum estiver salvo (opcional, pode ser o claro)
-            applyTheme('light'); // Ou 'dark' se preferir iniciar com o tema escuro
+            applyTheme('light'); // Padrão para tema claro
         }
 
         themeToggle.addEventListener('click', () => {
             let newTheme = body.classList.contains('dark-theme') ? 'light' : 'dark';
             applyTheme(newTheme);
             localStorage.setItem('theme', newTheme);
+        });
+
+        // Adiciona a classe 'active' ao link de navegação da página atual
+        document.addEventListener('DOMContentLoaded', function() {
+            const links = document.querySelectorAll('.app-navigation .nav-links a');
+            let currentPath = window.location.pathname;
+            
+            // Normaliza para o caso de estar visualizando arquivos locais diretamente
+            if (currentPath.startsWith('file:')) {
+                 // Para file:///path/to/index.html, currentPath.substring(...) resultaria em 'index.html'
+                currentPath = currentPath.substring(currentPath.lastIndexOf('/') + 1);
+            } else {
+                // Para URLs http/https
+                if (currentPath.endsWith('/')) {
+                    currentPath += 'index.html'; 
+                }
+                currentPath = currentPath.substring(currentPath.lastIndexOf('/') + 1);
+            }
+            if (currentPath === '') currentPath = 'index.html';
+
+
+            links.forEach(link => {
+                const linkPath = link.getAttribute('href').split('/').pop();
+                if (linkPath === currentPath) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active'); // Garante que outros não fiquem ativos
+                }
+            });
         });
     </script>
 </body>

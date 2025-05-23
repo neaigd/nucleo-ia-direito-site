@@ -10,45 +10,43 @@
     --color-logo-blue: #1F25B3;   
 
     /* Tema Claro (Padrão) */
-    --color-text-primary-light: #1a1a1a; /* Preto um pouco mais suave */      
+    --color-text-primary-light: #1a1a1a;    
     --color-text-secondary-light: #333333;
-    --color-background-body-light: #f0f2f5; /* Um cinza muito claro, mais suave */
+    --color-background-body-light: #f0f2f5; 
     --color-border-light: #d9d9d9; 
     --color-link-light: var(--color-logo-blue); 
     --color-link-hover-light: var(--color-logo-green); 
     --header-text-color-light: #000000; 
     --button-text-color-light: #000000; 
-    --button-text-on-dark-bg-light: #FFFFFF; /* Para botões com fundo escuro no tema claro */
+    --nav-icon-filter-light: none; /* Nenhum filtro para ícones no tema claro (assumindo que são escuros por padrão no SVG) */
+
 
     /* Tema Escuro */
-    --color-text-primary-dark: #e6e6e6; /* Branco suave */      
-    --color-text-secondary-dark: #b3b3b3; /* Cinza claro */
+    --color-text-primary-dark: #e6e6e6;     
+    --color-text-secondary-dark: #b3b3b3; 
     --color-background-body-dark: #121212;  
-    --color-background-content-dark: #1e1e1e; /* Fundo da seção de conteúdo no tema escuro */
+    /* --color-background-content-dark: #1e1e1e; /* Removido, pois usaremos gradiente */
     --color-border-dark: #3a3a3a; 
     --color-link-dark: var(--color-logo-green); 
     --color-link-hover-dark: var(--color-logo-blue); 
     --header-text-color-dark: #FFFFFF; 
     --button-text-color-dark: #FFFFFF; 
-    --button-text-on-light-bg-dark: #000000; /* Para botões com fundo claro no tema escuro */
+    --nav-icon-filter-dark: invert(1) brightness(1.5) contrast(0.8) hue-rotate(180deg) saturate(0.5); /* Filtro para tornar ícones escuros em claros/azulados */
+
 
     /* Gradientes para Cabeçalho */
     --gradient-header-light: linear-gradient(to right, var(--color-logo-green), var(--color-logo-blue));
-    --gradient-header-dark: linear-gradient(to right, var(--color-logo-green), var(--color-logo-blue)); /* Mantendo o mesmo gradiente do logo para o header */
+    --gradient-header-dark: linear-gradient(to right, var(--color-logo-green), var(--color-logo-blue));
 
     /* Gradientes Diagonais para Conteúdo */
-    /* Seção 1: Azul -> Verde (invertido e diagonal) */
     --gradient-content-1-light: linear-gradient(135deg, var(--color-logo-blue), var(--color-logo-green)); 
-    --gradient-content-1-dark: linear-gradient(135deg, var(--color-logo-blue), var(--color-logo-green)); /* Pode ser o mesmo ou um mais escuro */
+    --gradient-content-1-dark: linear-gradient(135deg, #0d125a, #2a8f6a); /* Versão mais escura do Azul -> Verde */
     
-    /* Seção 2: Verde -> Azul (original e diagonal - para alternar) */
     --gradient-content-2-light: linear-gradient(135deg, var(--color-logo-green), var(--color-logo-blue)); 
-    --gradient-content-2-dark: linear-gradient(135deg, var(--color-logo-green), var(--color-logo-blue));
+    --gradient-content-2-dark: linear-gradient(135deg, #2a8f6a, #0d125a); /* Versão mais escura do Verde -> Azul */
 
-    /* Cores de texto para usar sobre os gradientes de conteúdo */
-    /* Ajustar estas cores cuidadosamente para garantir legibilidade sobre os gradientes */
     --text-on-gradient-content-light: #000000; 
-    --text-on-gradient-content-dark: #FFFFFF;  
+    --text-on-gradient-content-dark: #f0f0f0;  /* Um branco um pouco menos intenso para melhor leitura */
 
     --header-height: 100px;
 }
@@ -105,24 +103,37 @@ header h1 {
 
 nav.app-navigation {
     background-color: #333; 
-    padding: 12px 20px;
-    text-align: center;
+    padding: 8px 20px; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
-nav.app-navigation a {
+.nav-links {
+    display: flex;
+    align-items: center;
+}
+
+.nav-links a {
     color: #f0f0f0; 
-    margin: 0 15px;
+    margin-right: 20px; 
     text-decoration: none;
     font-weight: bold;
     font-size: 0.95em;
     padding: 8px 12px;
     border-radius: 4px;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-nav.app-navigation a:hover, nav.app-navigation a.active {
+.nav-links a:last-child {
+    margin-right: 0;
+}
+
+.nav-links a:hover, 
+.nav-links a.active { 
     background-color: #555;
+    color: #ffffff;
     text-decoration: none;
 }
 
@@ -138,9 +149,9 @@ main {
     background-image: var(--gradient-content-1-light); 
     color: var(--text-on-gradient-content-light); 
     padding: 25px;
-    border-radius: 8px; /* Aumentado o raio */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Sombra um pouco mais pronunciada */
-    margin-bottom: 30px; /* Aumentado o espaçamento */
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+    margin-bottom: 30px; 
     transition: background-image 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -150,24 +161,24 @@ main {
 
 .content-section h2 {
     color: var(--text-on-gradient-content-light); 
-    border-bottom: 2px solid var(--text-on-gradient-content-light); /* Borda usa a cor do texto para contraste */
+    border-bottom: 2px solid var(--text-on-gradient-content-light); 
     padding-bottom: 12px;
     margin-top: 0;
     margin-bottom: 20px;
-    font-size: 1.8em; /* Aumentado o título da seção */
+    font-size: 1.8em; 
     transition: color 0.3s ease, border-bottom-color 0.3s ease;
 }
 
 .content-section p {
     color: var(--text-on-gradient-content-light); 
     margin-bottom: 15px;
-    font-size: 1.05em; /* Levemente aumentado para melhor leitura */
+    font-size: 1.05em; 
     transition: color 0.3s ease;
 }
 
 button, .button-style { 
     display: inline-block;
-    background-image: linear-gradient(to right, var(--color-logo-green), var(--color-logo-blue)); /* Usando cores base do logo */
+    background-image: linear-gradient(to right, var(--color-logo-green), var(--color-logo-blue)); 
     color: var(--button-text-color-light); 
     border: none;
     padding: 12px 22px;
@@ -178,11 +189,13 @@ button, .button-style {
     font-size: 1em;
     text-decoration: none; 
     text-align: center;
-    transition: opacity 0.3s ease, background-image 0.3s ease, color 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    transition: opacity 0.3s ease, background-image 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
 button:hover, .button-style:hover {
     opacity: 0.85;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
     text-decoration: none; 
 }
 
@@ -229,7 +242,7 @@ body.dark-theme header h1 {
 body.dark-theme .content-section {
     background-image: var(--gradient-content-1-dark);
     color: var(--text-on-gradient-content-dark);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Sombra mais escura para tema escuro */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4); /* Sombra mais adaptada ao tema escuro */
 }
 
 body.dark-theme .content-section:nth-of-type(even) {
@@ -238,7 +251,7 @@ body.dark-theme .content-section:nth-of-type(even) {
 
 body.dark-theme .content-section h2 {
     color: var(--text-on-gradient-content-dark);
-    border-bottom: 2px solid var(--text-on-gradient-content-dark); /* Borda usa a cor do texto */
+    border-bottom: 2px solid var(--text-on-gradient-content-dark); 
 }
 
 body.dark-theme .content-section p {
@@ -246,19 +259,17 @@ body.dark-theme .content-section p {
 }
 
 body.dark-theme button, body.dark-theme .button-style {
-    background-image: linear-gradient(to right, var(--color-logo-green), var(--color-logo-blue)); /* Mantém o gradiente do logo para botões */
+    background-image: linear-gradient(to right, var(--color-logo-green), var(--color-logo-blue)); 
     color: var(--button-text-color-dark);
+    box-shadow: 0 2px 4px rgba(255,255,255,0.1);
+}
+body.dark-theme button:hover, body.dark-theme .button-style:hover {
+    box-shadow: 0 3px 6px rgba(255,255,255,0.15);
 }
 
-/* Caso especial: se o botão estiver sobre um fundo claro no tema escuro (improvável com a estrutura atual) */
-/*
-body.dark-theme .content-section-light-bg button {
-    color: var(--button-text-on-light-bg-dark);
-}
-*/
 
 body.dark-theme footer {
-    border-top: 3px solid var(--color-logo-green); /* Mantém a cor verde do logo */
+    border-top: 3px solid var(--color-logo-green); 
 }
 
 body.dark-theme footer a {
@@ -269,58 +280,64 @@ body.dark-theme footer a:hover {
     color: var(--color-logo-blue);
 }
 
-/* Botão de Alternância de Tema com Ícone SVG */
-.theme-toggle-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #444; 
-    color: white; /* A cor do SVG será herdada ou definida explicitamente */
-    border: 1px solid #666;
-    border-radius: 50%; /* Para um botão redondo */
-    width: 50px;
-    height: 50px;
-    padding: 0; /* Removido padding para o SVG preencher */
+/* Botão de Alternância de Tema na Navegação com IMG */
+.theme-toggle-button-nav {
+    background-color: transparent; 
+    border: 1px solid var(--nav-icon-filter-light); /* Usa o filtro para a cor inicial da borda, ou uma cor específica */
+    border-radius: 50%; 
+    width: 36px;  
+    height: 36px; 
+    padding: 0; 
     cursor: pointer;
     z-index: 1000;
-    box-shadow: 0px 2px 5px rgba(0,0,0,0.2);
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-left: auto; 
 }
 
-.theme-toggle-button:hover {
+.theme-toggle-button-nav:hover {
     transform: scale(1.1);
+    background-color: rgba(255,255,255,0.1); 
 }
 
-.theme-toggle-button svg {
-    width: 24px; /* Tamanho do ícone */
-    height: 24px;
-    fill: currentColor; /* O SVG herdará a cor do texto do botão */
+.theme-toggle-button-nav .theme-icon { 
+    width: 20px; 
+    height: 20px;
+    filter: var(--nav-icon-filter-light); 
+    transition: filter 0.3s ease;
 }
 
 /* Estilo do botão no tema escuro */
-body.dark-theme .theme-toggle-button {
-    background-color: #f0f0f0; 
-    color: #333; /* Cor do ícone SVG no tema escuro */
-    border: 1px solid #ccc;
+body.dark-theme .theme-toggle-button-nav {
+    border-color: var(--color-text-primary-dark); /* Cor da borda que contraste com o fundo da nav no tema escuro */
 }
+
+body.dark-theme .theme-toggle-button-nav:hover {
+    background-color: rgba(0,0,0,0.2); 
+}
+
+body.dark-theme .theme-toggle-button-nav .theme-icon {
+    filter: var(--nav-icon-filter-dark); 
+}
+
 
 /* Esconder o ícone que não está ativo */
-.theme-toggle-button .icon-sun { display: none; }
-.theme-toggle-button .icon-moon { display: block; } /* Lua visível por padrão (se o tema claro for padrão) */
+.theme-toggle-button-nav .icon-sun { display: none; }
+.theme-toggle-button-nav .icon-moon { display: block; } 
 
-body.dark-theme .theme-toggle-button .icon-sun { display: block; } /* Sol visível no tema escuro */
-body.dark-theme .theme-toggle-button .icon-moon { display: none; }
+body.dark-theme .theme-toggle-button-nav .icon-sun { display: block; } 
+body.dark-theme .theme-toggle-button-nav .icon-moon { display: none; }
 
-
-/* Ajustes para o logo no tema escuro, se o SVG for preto */
-/* Se o seu logoNucleo.svg tem elementos pretos, eles podem sumir no header escuro.
-   Uma solução é ter um SVG que use 'currentColor' ou classes para estilização,
-   ou aplicar um filtro se for simples. */
-/*
+/* Ajustes para o logo principal no tema escuro */
 body.dark-theme #logo {
-    filter: invert(1) hue-rotate(180deg) brightness(1.5) contrast(1.2); // Exemplo de filtro para inverter e ajustar
+    /* Se o seu logoNucleo.svg for predominantemente escuro (como o da amostra),
+       este filtro pode ajudar a torná-lo mais claro e visível contra o gradiente do header no tema escuro.
+       Ajuste os valores conforme necessário. `invert(1)` torna preto em branco. 
+       `hue-rotate` pode ser usado para mudar a tonalidade se a inversão pura não for ideal.
+       `brightness` e `contrast` ajudam a refinar. */
+    /* filter: invert(1) hue-rotate(180deg) brightness(1.2) contrast(1.1); */
+    /* Outra opção para logos escuros: apenas aumentar o brilho e contraste ou aplicar um drop-shadow claro */
+    filter: brightness(1.5) contrast(1.2) drop-shadow(0 0 1px rgba(255, 255, 255, 0.5));
 }
-*/
