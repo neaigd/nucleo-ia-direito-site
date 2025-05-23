@@ -7,12 +7,37 @@
     <link rel="stylesheet" href="css/style.css"> 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" integrity="sha384-wcIxkf4k55AIcd2uy7g7WpVfAUcSwrrFRU8TTWELU7Ld84QCJWAARekL7SgMRSuB" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js" integrity="sha384-hIoBPJpTUs74ddyc4bFZSM1gAUAAN5CRbMpbgotgjMHHJaTDCB1UeFCAfPTL4VKB" crossorigin="anonymous"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouEsAb2awP0XKBDEOXoKDuVWMWrWaPrenderD5tަންVEAESwhlAdgo" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js" integrity="sha384-gMqMDRY31GPoApRNGbAVH8yLQD9Iok9RzP72rYF6A734zZwo7rX/rXAAUa7qJjxH" crossorigin="anonymous"></script>
     <style>
         /* Estilos adicionais para a página app1 */
+        .intro-video-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 6px;
+            /* Mantém o fundo da .content-section para consistência */
+        }
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* Proporção 16:9 */
+            height: 0;
+            overflow: hidden;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
         .pillar-section {
-            margin-bottom: 20px; /* Reduzido para melhor visualização do acordeão */
-            padding: 0; /* Removido padding para o summary controlar melhor */
+            margin-bottom: 20px; 
+            padding: 0; 
             background-color: rgba(255,255,255,0.03); 
             border-radius: 6px;
             border: 1px solid transparent; 
@@ -21,18 +46,30 @@
             background-color: rgba(0,0,0,0.08);
         }
         .pillar-section summary {
-            font-size: 1.3em; /* Ajustado */
+            font-size: 1.3em; 
             font-weight: bold;
             cursor: pointer;
-            padding: 15px 20px; /* Adicionado padding ao summary */
+            padding: 15px 20px; 
             color: var(--text-on-gradient-content-light); 
-            background-color: transparent; /* Garante que não sobreponha o fundo da section */
-            border-radius: 6px; /* Para cantos arredondados também no summary */
-            display: block; /* Para ocupar toda a largura */
+            background-color: transparent; 
+            border-radius: 6px; 
+            display: block; 
             transition: background-color 0.2s ease;
+            position: relative; /* Para o indicador +/- */
         }
-        .pillar-section[open] summary { /* Estilo para quando o details está aberto */
-            /* Pode adicionar um estilo diferente se desejar, ex: borda inferior */
+        .pillar-section summary::after { /* Indicador de expandir/recolher */
+            content: '+';
+            position: absolute;
+            right: 20px;
+            font-size: 1.2em;
+            transition: transform 0.2s ease;
+        }
+        .pillar-section[open] summary::after {
+            content: '−'; /* Menos quando aberto */
+            transform: rotate(180deg);
+        }
+
+        .pillar-section[open] summary {
              border-bottom: 1px solid rgba(0,0,0,0.1);
         }
         body.dark-theme .pillar-section[open] summary {
@@ -50,7 +87,7 @@
             background-color: rgba(255,255,255,0.03);
         }
         .pillar-content {
-            padding: 0 20px 20px 20px; /* Padding apenas para o conteúdo interno */
+            padding: 0 20px 20px 20px; 
         }
         .pillar-content blockquote {
             font-style: italic;
@@ -66,7 +103,7 @@
         }
         .pillar-content h4 {
             margin-top: 20px;
-            margin-bottom: 8px; /* Ajustado */
+            margin-bottom: 8px; 
             color: var(--text-on-gradient-content-light);
             font-size: 1.1em;
         }
@@ -79,6 +116,7 @@
             background-color: rgba(0,0,0,0.04); 
             border-radius: 4px;
             overflow-x: auto; 
+            font-size: 1.1em; /* Aumentar um pouco o tamanho da fonte da fórmula */
         }
         body.dark-theme .pillar-content .formula-block {
             background-color: rgba(255,255,255,0.04);
@@ -86,7 +124,7 @@
         .pillar-content ul {
             list-style-type: disc;
             margin-left: 20px;
-            padding-left: 5px; /* Ajustado */
+            padding-left: 5px; 
         }
         .pillar-content ul li {
             margin-bottom: 5px;
@@ -116,12 +154,23 @@
     </nav>
 
     <main>
+        <section class="content-section intro-video-section">
+            <h2>A Gênese: Uma Visão Enigmática</h2>
+            <p>Tudo começou com este vídeo instigante, cujas entrelinhas inspiraram uma pesquisa aprofundada sobre o futuro da interação humano-computador e o papel transformador da Inteligência Artificial. O que se segue é um mergulho nas análises e nos "mini-aplicativos" interativos que emergiram dessa exploração.</p>
+            <p>Esta página e as subsequentes são um exercício de <strong>vibecoding</strong>, aplicando as mais modernas ferramentas de IA para automação, análise crítica e pesquisa avançada. Estamos desenvolvendo um conteúdo interativo e personalizado, projetado para enriquecer a experiência de nossos membros e fomentar a discussão sobre a IA Generativa Aplicada ao Direito.</p>
+            
+            <div class="video-container">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/W09bIpc_3ms?si=arT3W6P6KOtlRKO2" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+        </section>
+
         <section class="content-section">
             <h2>Explorador Interativo dos Pilares da Transformação da IA</h2>
             <p>Explore os quatro pilares fundamentais que moldam a transformação da Interação Humano-Computador (IHC) impulsionada pela Inteligência Artificial. Clique em cada pilar para expandir e ver detalhes, incluindo a formalização lógica e as evidências da pesquisa.</p>
         </section>
 
-        <section class="content-section" id="pilaresContainer"> <details class="pillar-section"> 
+        <section class="content-section" id="pilaresContainer"> 
+            <details class="pillar-section"> 
                 <summary>Pilar I: Evolução Paradigmática de Dispositivos e Interação</summary>
                 <div class="pillar-content">
                     <h4>Trecho Original Inspirador:</h4>
@@ -258,13 +307,19 @@
         // Script para funcionalidades da página
         document.addEventListener('DOMContentLoaded', function() {
             // Renderiza KaTeX
-            renderMathInElement(document.body, {
-                delimiters: [
-                    {left: "$$", right: "$$", display: true}, {left: "$", right: "$", display: false},
-                    {left: "\\(", right: "\\)", display: false}, {left: "\\[", right: "\\]", display: true}
-                ],
-                throwOnError: false 
-            });
+            // A chamada para renderMathInElement é crucial e deve ser feita após o DOM estar pronto.
+            // Certifique-se de que o script do auto-render.min.js do KaTeX foi carregado antes desta chamada.
+            if (typeof renderMathInElement === 'function') {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: "$$", right: "$$", display: true}, {left: "$", right: "$", display: false},
+                        {left: "\\(", right: "\\)", display: false}, {left: "\\[", right: "\\]", display: true}
+                    ],
+                    throwOnError: false 
+                });
+            } else {
+                console.error("KaTeX auto-render script not loaded or renderMathInElement is not defined.");
+            }
 
             // Script para marcar link ativo na navegação
             const links = document.querySelectorAll('.app-navigation .nav-links a');
@@ -285,12 +340,9 @@
             // Script para comportamento de Acordeão nos pilares
             const detailsElements = document.querySelectorAll('#pilaresContainer .pillar-section');
             detailsElements.forEach(details => {
-                // Todos começam fechados (removido 'open' do HTML)
                 details.removeAttribute('open'); 
-
                 details.addEventListener('toggle', event => {
                     if (details.open) {
-                        // Fecha todos os outros elementos <details>
                         detailsElements.forEach(otherDetails => {
                             if (otherDetails !== details && otherDetails.open) {
                                 otherDetails.removeAttribute('open');
