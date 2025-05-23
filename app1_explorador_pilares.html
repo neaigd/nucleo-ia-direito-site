@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/style.css"> 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" integrity="sha384-wcIxkf4k55AIcd2uy7g7WpVfAUcSwrrFRU8TTWELU7Ld84QCJWAARekL7SgMRSuB" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js" integrity="sha384-hIoBPJpTUs74ddyc4bFZSM1gAUAAN5CRbMpbgotgjMHHJaTDCB1UeFCAfPTL4VKB" crossorigin="anonymous"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js" integrity="sha384-gMqMDRY31GPoApRNGbAVH8yLQD9Iok9RzP72rYF6A734zZwo7rX/rXAAUa7qJjxH" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js" integrity="sha384-gMqMDRY31GPoApRNGbAVH8yLQD9Iok9RzP72rYF6A734zZwo7rX/rXAAUa7qJjxH" crossorigin="anonymous"></script> {/* Removido o onload daqui */}
     <style>
         /* Estilos adicionais para a página app1 (mantidos da versão anterior) */
         .intro-video-section {
@@ -127,9 +127,9 @@
             background-color: rgba(255,255,255,0.06); 
         }
         .pillar-content ul {
-            list-style-type: disc;
-            margin-left: 25px; 
-            padding-left: 10px; 
+            list-style-type: none; /* Removido estilo de lista padrão para usar KaTeX */
+            margin-left: 0;
+            padding-left: 5px; 
         }
         .pillar-content ul li {
             margin-bottom: 8px; 
@@ -189,11 +189,11 @@
                         </div>
                         <h4>Legenda:</h4>
                         <ul>
-                            <li>\( C \): Dispositivos computacionais legados (ex: laptops, smartphones)</li>
-                            <li>\( D \): Dispositivo nativo de IA (AI-native device)</li>
-                            <li>\(\text{Legacy}(x)\): \( x \) baseia-se em paradigmas de interação desatualizados</li>
-                            <li>\(\text{Inadequate}(x)\): \( x \) falha em atender às necessidades modernas de interação com IA</li>
-                            <li>\(\text{Need}(x)\): Necessidade do paradigma tecnológico \( x \)</li>
+                            <li>$(C)$: Dispositivos computacionais legados (ex: laptops, smartphones)</li>
+                            <li>$(D)$: Dispositivo nativo de IA (AI-native device)</li>
+                            <li>$(\text{Legacy}(x))$: $(x)$ baseia-se em paradigmas de interação desatualizados</li>
+                            <li>$(\text{Inadequate}(x))$: $(x)$ falha em atender às necessidades modernas de interação com IA</li>
+                            <li>$(\text{Need}(x))$: Necessidade do paradigma tecnológico $(x)$</li>
                         </ul>
                         <h4>Explicação e Validação da Pesquisa:</h4>
                         <p>A proposição de que para cada paradigma computacional legado (C), sua natureza legada implica inadequação para a interação com IA e a necessidade de um "Dispositivo Nativo de IA" (D) encontra forte corroboração. Dispositivos atuais (laptops, smartphones) são inadequados para interações nuancedas e contextualmente conscientes exigidas pela IA avançada. A visão de Sam Altman (OpenAI) e Jony Ive para hardware personalizado de IA apoia esta inadequação e a necessidade de D. Os paradigmas de IHC tradicionais, focados em usabilidade para ferramentas estáticas, são insuficientes para a IA adaptativa. O "gargalo de interação" dos dispositivos legados (comando-controle explícito, baseados em tela) impulsiona a busca por hardware nativo de IA, que pode redefinir "dispositivo" para interfaces ambientais e pervasivas, integrando IA organicamente na vida diária.</p>
@@ -215,11 +215,11 @@
                         </div>
                         <h4>Legenda:</h4>
                         <ul>
-                            <li>\( V \): Vetor de Visão (direção da inovação)</li>
-                            <li>\( M \): Matriz Motivacional (valores da equipe)</li>
-                            <li>\( \times \): Operador de sinergia</li>
-                            <li>\(\text{SharedVision}(x)\): Consenso na direção estratégica \( x \)</li>
-                            <li>\(\text{AlignedValues}(y)\): Congruência nos princípios éticos/fundamentais \( y \)</li>
+                            <li>$(V)$: Vetor de Visão (direção da inovação)</li>
+                            <li>$(M)$: Matriz Motivacional (valores da equipe)</li>
+                            <li>$(\times)$: Operador de sinergia</li>
+                            <li>$(\text{SharedVision}(x))$: Consenso na direção estratégica $(x)$</li>
+                            <li>$(\text{AlignedValues}(y))$: Congruência nos princípios éticos/fundamentais $(y)$</li>
                         </ul>
                         <h4>Explicação e Validação da Pesquisa:</h4>
                         <p>A inovação bem-sucedida em IA é uma função sinérgica de visão compartilhada (V) e valores alinhados (M). Uma visão compartilhada na transformação digital é fundamental para alinhar colaboradores, definir expectativas e guiar recursos. A ausência de uma estratégia de negócios coerente (falta de visão compartilhada) é causa raiz de falhas na IA. A relação sinérgica "Success(V x M)" implica que uma falha em V ou M pode impactar desproporcionalmente a iniciativa, dadas as implicações organizacionais e éticas da IA. Numerosas fontes validam que visão clara e compartilhada, alinhada com objetivos de negócios e valores (incluindo éticos), é primordial para o sucesso.</p>
@@ -241,11 +241,11 @@
                         </div>
                         <h4>Legenda:</h4>
                         <ul>
-                            <li>\( x \): Inovação (especialmente em IA)</li>
-                            <li>\( f \): Fatores únicos de um local (ex: topografia e cultura de São Francisco)</li>
-                            <li>\(\text{Topography}(f)\): Elementos físicos e estruturais do local \( f \)</li>
-                            <li>\(\text{Culture}(f)\): Ethos cultural, como aceitação da "estranheza criativa" em \( f \)</li>
-                            <li>\(\text{Enables}(f, x)\): Fatores \( f \) possibilitam a emergência da inovação \( x \)</li>
+                            <li>$(x)$: Inovação (especialmente em IA)</li>
+                            <li>$(f)$: Fatores únicos de um local (ex: topografia e cultura de São Francisco)</li>
+                            <li>$(\text{Topography}(f))$: Elementos físicos e estruturais do local $(f)$</li>
+                            <li>$(\text{Culture}(f))$: Ethos cultural, como aceitação da "estranheza criativa" em $(f)$</li>
+                            <li>$(\text{Enables}(f, x))$: Fatores $(f)$ possibilitam a emergência da inovação $(x)$</li>
                         </ul>
                         <h4>Explicação e Validação da Pesquisa:</h4>
                         <p>Toda inovação disruptiva em IA (x) é possibilitada por topografias geográficas e culturais específicas (f). Silicon Valley, com seu ecossistema único de universidades, gigantes da tecnologia e investidores, é o epicentro global. O "modelo de Silicon Valley" inclui capital de risco, capital humano, laços universidade-indústria e um ethos de disrupção. Centros emergentes (Europa Central/Oriental, Singapura, Canadá, Israel) também demonstram fatores únicos (educação técnica, política governamental, talento especializado). A "topografia" e "cultura" formam um sistema dinâmico e coevolutivo, onde o sucesso atrai mais elementos, criando ciclos de feedback. A evidência valida consistentemente que a inovação em IA está ligada a estes fatores locais específicos.</p>
@@ -267,9 +267,9 @@
                         </div>
                         <h4>Legenda:</h4>
                         <ul>
-                            <li>\( b \): Barreiras à adoção (ex: Complexidade, Custo, Expertise)</li>
-                            <li>\(\text{Barrier}(x)\): \( x \) impede o acesso universal</li>
-                            <li>\(\text{Access}(x)\): \( x \) é necessário para o uso</li>
+                            <li>$(b)$: Barreiras à adoção (ex: Complexidade, Custo, Expertise)</li>
+                            <li>$(\text{Barrier}(x))$: $(x)$ impede o acesso universal</li>
+                            <li>$(\text{Access}(x))$: $(x)$ é necessário para o uso</li>
                         </ul>
                         <h4>Explicação e Validação da Pesquisa:</h4>
                         <p>A formalização "Não deve existir uma barreira (b) que restrinja o acesso à IA" representa um forte objetivo normativo para a democratização. O argumento para desmantelar barreiras é duplo: catalisar inovação mais ampla e distribuir equitativamente os benefícios da IA. Iniciativas como o NAIRR visam democratizar o acesso a recursos críticos. Modelos de IA de código aberto são vistos como catalisadores para transparência e acessibilidade. No entanto, existe uma tensão entre a democratização total e o uso responsável, seguro e ético, pois o acesso irrestrito a IA poderosa pode democratizar a capacidade de causar danos. A necessidade de minimizar barreiras injustas é validada, mas a eliminação de todas as barreiras sem qualificação é debatível, exigindo equilíbrio com governação e literacia ética.</p>
@@ -318,18 +318,20 @@
 
         // Script para funcionalidades da página
         document.addEventListener('DOMContentLoaded', function() {
-            // Chama a renderização do KaTeX explicitamente
+            // Tenta renderizar KaTeX
             if (typeof renderMathInElement === 'function') {
                 renderMathInElement(document.body, {
                     delimiters: [
-                        {left: "$$", right: "$$", display: true}, {left: "$", right: "$", display: false},
-                        {left: "\\(", right: "\\)", display: false}, {left: "\\[", right: "\\]", display: true}
+                        {left: "$$", right: "$$", display: true}, // Para blocos de display
+                        {left: "$", right: "$", display: false},   // Para inline math
+                        {left: "\\(", right: "\\)", display: false}, // Alternativa para inline math
+                        {left: "\\[", right: "\\]", display: true}  // Alternativa para display math
                     ],
-                    throwOnError: false 
+                    throwOnError: false // Não para a renderização se uma fórmula estiver errada
                 });
                 console.log("KaTeX render called by DOMContentLoaded script.");
             } else {
-                console.error("KaTeX auto-render function 'renderMathInElement' is not defined. Ensure KaTeX scripts are loaded correctly.");
+                console.error("KaTeX auto-render function 'renderMathInElement' is not defined. Ensure KaTeX scripts are loaded correctly and before this script runs.");
             }
 
             // Script para marcar link ativo na navegação
