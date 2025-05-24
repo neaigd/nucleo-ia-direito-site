@@ -10,11 +10,11 @@
     --color-logo-blue: #1F25B3;   
 
     /* Tema Claro (Padrão) */
-    --color-text-primary-light: #1a1a1a;    
-    --color-text-secondary-light: #333333;
-    --color-background-body-light: #f0f2f5; 
+    --color-text-primary-light: #2F2F2F;    
+    --color-text-secondary-light: #4F4F4F;
+    --color-background-body-light: #E6F2E6; 
     --color-border-light: #d9d9d9; 
-    --color-link-light: var(--color-logo-blue); 
+    --color-link-light: #2F2F2F; /* Adjusted for better contrast */
     --color-link-hover-light: var(--color-logo-green); 
     --header-text-color-light: #FFFFFF; /* CHANGED for better contrast on gradient */
     --button-text-color-light: #FFFFFF; /* CHANGED for better contrast on gradient */
@@ -24,7 +24,7 @@
     /* Tema Escuro */
     --color-text-primary-dark: #e6e6e6;     
     --color-text-secondary-dark: #b3b3b3; 
-    --color-background-body-dark: #121212;  
+    --color-background-body-dark: #1A1A1A;  
     /* --color-background-content-dark: #1e1e1e; /* Removido, pois usaremos gradiente */
     --color-border-dark: #3a3a3a; 
     --color-link-dark: var(--color-logo-green); 
@@ -49,6 +49,20 @@
     --text-on-gradient-content-dark: #f0f0f0;  /* Um branco um pouco menos intenso para melhor leitura */
 
     --header-height: 100px;
+
+    /* Variáveis da Sidebar Direita */
+    --sidebar-width: 220px;
+    --sidebar-bg-light: #f8f9fa;
+    --sidebar-text-light: #212529;
+    --sidebar-link-hover-bg-light: #e9ecef;
+    --sidebar-link-active-bg-light: #dde2e6;
+    --sidebar-border-light: #dee2e6;
+
+    --sidebar-bg-dark: #2c3034;
+    --sidebar-text-dark: #e9ecef;
+    --sidebar-link-hover-bg-dark: #3A3F44;
+    --sidebar-link-active-bg-dark: #4A4F54;
+    --sidebar-border-dark: #495057;
 }
 
 /* Estilos Globais */
@@ -143,6 +157,8 @@ main {
     max-width: 1100px;
     margin: 20px auto;
     width: 90%;
+    margin-right: var(--sidebar-width); /* Espaço para a sidebar */
+    transition: margin-right 0.3s ease;
 }
 
 .content-section {
@@ -440,4 +456,88 @@ body.dark-theme .dropbtn.active-parent {
 
 body.dark-theme .comparison-box code {
     color: var(--text-on-gradient-content-dark); /* Lighter text for dark theme code blocks */
+}
+
+/* ------------------------- */
+/* --- ESTILOS SIDEBAR DIREITA --- */
+/* ------------------------- */
+
+.sidebar-right {
+    position: fixed;
+    top: var(--header-height); /* Abaixo do header */
+    right: 0;
+    width: var(--sidebar-width);
+    height: calc(100vh - var(--header-height)); /* Altura total menos o header */
+    background-color: var(--sidebar-bg-light);
+    border-left: 1px solid var(--sidebar-border-light);
+    padding: 20px;
+    overflow-y: auto; /* Scroll se o conteúdo for maior que a altura */
+    z-index: 1010; /* Acima do conteúdo principal, abaixo de modais (se houver) */
+    box-shadow: -2px 0 5px rgba(0,0,0,0.05);
+    transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+
+.sidebar-right nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-right nav li {
+    margin-bottom: 8px; /* Espaçamento entre os links */
+}
+
+.sidebar-right nav a {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: var(--sidebar-text-light);
+    border-radius: 4px;
+    font-size: 0.9em;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.sidebar-right nav a:hover {
+    background-color: var(--sidebar-link-hover-bg-light);
+    color: var(--sidebar-text-light); /* Manter a cor do texto ou ajustar se necessário */
+}
+
+.sidebar-right nav a.active-sidebar-link { /* Classe para o link ativo, a ser adicionada por JS */
+    background-color: var(--sidebar-link-active-bg-light);
+    color: var(--sidebar-text-light); /* Manter a cor do texto ou ajustar se necessário */
+    font-weight: bold;
+}
+
+/* Tema Escuro para Sidebar Direita */
+body.dark-theme .sidebar-right {
+    background-color: var(--sidebar-bg-dark);
+    border-left-color: var(--sidebar-border-dark);
+    box-shadow: -2px 0 5px rgba(0,0,0,0.2);
+}
+
+body.dark-theme .sidebar-right nav a {
+    color: var(--sidebar-text-dark);
+}
+
+body.dark-theme .sidebar-right nav a:hover {
+    background-color: var(--sidebar-link-hover-bg-dark);
+    color: var(--sidebar-text-dark);
+}
+
+body.dark-theme .sidebar-right nav a.active-sidebar-link {
+    background-color: var(--sidebar-link-active-bg-dark);
+    color: var(--sidebar-text-dark);
+}
+
+
+/* Responsividade para Sidebar Direita */
+/* Esconder a sidebar em telas menores e remover a margem do main */
+@media (max-width: 1199.98px) { /* Breakpoint antes de LG em Bootstrap, por exemplo */
+    .sidebar-right {
+        /* transform: translateX(var(--sidebar-width)); */ /* Animação opcional de saída */
+        display: none; /* Simplesmente esconde */
+    }
+    main {
+        margin-right: 0; /* Remove a margem quando a sidebar está escondida */
+    }
 }
