@@ -16,8 +16,8 @@
     --color-border-light: #d9d9d9; 
     --color-link-light: var(--color-logo-blue); 
     --color-link-hover-light: var(--color-logo-green); 
-    --header-text-color-light: #000000; 
-    --button-text-color-light: #000000; 
+    --header-text-color-light: #FFFFFF; /* CHANGED for better contrast on gradient */
+    --button-text-color-light: #FFFFFF; /* CHANGED for better contrast on gradient */
     --nav-icon-filter-light: none; /* Nenhum filtro para ícones no tema claro (assumindo que são escuros por padrão no SVG) */
 
 
@@ -45,7 +45,7 @@
     --gradient-content-2-light: linear-gradient(135deg, var(--color-logo-green), var(--color-logo-blue)); 
     --gradient-content-2-dark: linear-gradient(135deg, #2a8f6a, #0d125a); /* Versão mais escura do Verde -> Azul */
 
-    --text-on-gradient-content-light: #000000; 
+    --text-on-gradient-content-light: #FFFFFF; /* CHANGED for better contrast on gradient */
     --text-on-gradient-content-dark: #f0f0f0;  /* Um branco um pouco menos intenso para melhor leitura */
 
     --header-height: 100px;
@@ -340,4 +340,104 @@ body.dark-theme #logo {
     /* filter: invert(1) hue-rotate(180deg) brightness(1.2) contrast(1.1); */
     /* Outra opção para logos escuros: apenas aumentar o brilho e contraste ou aplicar um drop-shadow claro */
     filter: brightness(1.5) contrast(1.2) drop-shadow(0 0 1px rgba(255, 255, 255, 0.5));
+}
+
+/* Estilos para o Dropdown */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    background-color: inherit; /* Herda da nav-links a */
+    color: #f0f0f0;
+    padding: 8px 12px;
+    font-size: 0.95em;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-main);
+    border-radius: 4px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.nav-links .dropdown .dropbtn:hover,
+.nav-links .dropdown .dropbtn.active { /* Estilo para quando o dropdown está ativo/hover */
+    background-color: #555;
+    color: #ffffff;
+}
+
+.dropbtn.active-parent {
+    /* Estilo para indicar que um item no dropdown está ativo */
+    background-color: rgba(0, 0, 0, 0.08); 
+    /* box-shadow: inset 0 -2px 0 var(--color-logo-green); */
+}
+body.dark-theme .dropbtn.active-parent {
+    background-color: rgba(255, 255, 255, 0.1); 
+}
+
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #333; /* Mesmo fundo da nav */
+    min-width: 220px; /* Largura mínima para os itens */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.3);
+    z-index: 1001; /* Acima do header */
+    border-radius: 0 0 4px 4px; /* Cantos arredondados na parte inferior */
+    padding-top: 5px; /* Pequeno espaço no topo */
+    padding-bottom: 5px; /* Pequeno espaço na base */
+}
+
+.dropdown-content a {
+    color: #f0f0f0;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+    font-size: 0.9em;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.dropdown-content a:hover,
+.dropdown-content a.active { /* Item do dropdown ativo/hover */
+    background-color: #555;
+    color: #ffffff;
+}
+
+/* Mostrar o dropdown quando o botão é clicado (controlado por JS adicionando/removendo a classe 'show') */
+.dropdown-content.show {
+    display: block;
+}
+
+/* Responsividade básica para o dropdown */
+@media screen and (max-width: 768px) {
+    .dropdown-content {
+        min-width: 100%; /* Ocupa a largura total do dropdown container */
+        left: 0; /* Alinha à esquerda do container */
+    }
+    .nav-links {
+        flex-direction: column; /* Links e dropdown em coluna */
+        align-items: flex-start; /* Alinha itens à esquerda */
+    }
+    .nav-links a, .nav-links .dropdown .dropbtn {
+        margin-right: 0;
+        margin-bottom: 5px; /* Espaçamento entre itens empilhados */
+        width: 100%; /* Fazem os botões ocuparem a largura */
+        box-sizing: border-box; /* Para que padding não aumente a largura total */
+    }
+    .nav-links .dropdown {
+        width: 100%; /* Dropdown ocupa a largura total */
+    }
+     .theme-toggle-button-nav {
+        margin-top: 10px; /* Adiciona espaço acima do botão de tema */
+    }
+}
+
+/* Specific styling for code blocks in comparison boxes (e.g., App6) */
+.comparison-box code {
+    color: var(--color-text-secondary-light); /* Default to a dark color for light theme */
+}
+
+body.dark-theme .comparison-box code {
+    color: var(--text-on-gradient-content-dark); /* Lighter text for dark theme code blocks */
 }

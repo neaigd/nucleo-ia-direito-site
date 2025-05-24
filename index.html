@@ -18,9 +18,24 @@
 
     <nav class="app-navigation">
         <div class="nav-links">
-            <a href="index.html" class="active">Início</a>
-            <a href="app1_explorador_pilares.html">App 1</a>
+            <a href="index.html">Início</a>
+            <a href="app1_explorador_pilares.html">Pilares (App1)</a>
+            <a href="app2_hotspots_globais.html">Hotspots (App2)</a>
+            <a href="app3_descomplicador_barreiras.html">Barreiras (App3)</a>
+            <div class="dropdown">
+                <button class="dropbtn">Mais Apps &#9662;</button>
+                <div class="dropdown-content">
+                    <a href="app4_casos_sucesso_fracasso.html">Casos (App4)</a>
+                    <a href="app5_decodificador_dispositivos.html">Dispositivos (App5)</a>
+                    <a href="app6_linguagem_natural.html">Linguagem (App6)</a>
+                    <a href="app7_balanca_etica.html">Ética (App7)</a>
+                    <a href="app8_regulacao_inovacao.html">Regulação (App8)</a>
+                    <a href="app9_teia_transformacao.html">Interdependências (App9)</a>
+                    <a href="app10_dispositivos_barreiras.html">Disp. Barreiras (App10)</a>
+                    <a href="app11_paradoxo_interacao.html">Paradoxo (App11)</a>
+                </div>
             </div>
+        </div>
         <button id="themeToggle" class="theme-toggle-button-nav" aria-label="Alternar tema">
             <img src="images/icons_usados/moon.svg" alt="Ícone Lua" class="icon-moon theme-icon">
             <img src="images/icons_usados/sun.svg" alt="Ícone Sol" class="icon-sun theme-icon">
@@ -49,6 +64,7 @@
     </footer>
 
     <script>
+        // Script de alternância de tema
         const themeToggle = document.getElementById('themeToggle');
         const body = document.body;
         
@@ -62,16 +78,15 @@
             }
         }
 
-        // Verifica e aplica o tema salvo ou o padrão do sistema/preferência
         const savedTheme = localStorage.getItem('theme');
         const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 
         if (savedTheme) {
             applyTheme(savedTheme);
         } else if (prefersDark) {
-            applyTheme('dark'); // Define o tema escuro como padrão se o usuário preferir
+            applyTheme('dark'); 
         } else {
-            applyTheme('light'); // Padrão para tema claro
+            applyTheme('light'); 
         }
 
         themeToggle.addEventListener('click', () => {
@@ -80,17 +95,15 @@
             localStorage.setItem('theme', newTheme);
         });
 
-        // Adiciona a classe 'active' ao link de navegação da página atual
+        // Script para funcionalidades da página (Navegação e Dropdown)
         document.addEventListener('DOMContentLoaded', function() {
-            const links = document.querySelectorAll('.app-navigation .nav-links a');
+            const links = document.querySelectorAll('.app-navigation .nav-links a, .app-navigation .dropdown-content a');
+            const dropdownBtn = document.querySelector('.app-navigation .dropdown .dropbtn');
             let currentPath = window.location.pathname;
             
-            // Normaliza para o caso de estar visualizando arquivos locais diretamente
             if (currentPath.startsWith('file:')) {
-                 // Para file:///path/to/index.html, currentPath.substring(...) resultaria em 'index.html'
                 currentPath = currentPath.substring(currentPath.lastIndexOf('/') + 1);
             } else {
-                // Para URLs http/https
                 if (currentPath.endsWith('/')) {
                     currentPath += 'index.html'; 
                 }
@@ -98,15 +111,54 @@
             }
             if (currentPath === '') currentPath = 'index.html';
 
-
+            let isDropdownItemActive = false;
             links.forEach(link => {
                 const linkPath = link.getAttribute('href').split('/').pop();
                 if (linkPath === currentPath) {
                     link.classList.add('active');
+                    if (link.closest('.dropdown-content') && dropdownBtn) {
+                        // Adiciona 'active-parent' ao botão do dropdown se um item do dropdown estiver ativo
+                        link.closest('.dropdown').querySelector('.dropbtn').classList.add('active-parent');
+                        isDropdownItemActive = true; // Sinaliza que um item do dropdown está ativo
+                    }
                 } else {
-                    link.classList.remove('active'); // Garante que outros não fiquem ativos
+                    link.classList.remove('active');
                 }
             });
+
+            // Funcionalidade do Dropdown
+            if (dropdownBtn) {
+                const dropdownContent = dropdownBtn.nextElementSibling;
+
+                dropdownBtn.addEventListener('click', function(event) {
+                    event.stopPropagation(); 
+                    const isActiveParent = dropdownBtn.classList.contains('active-parent');
+                    const isCurrentlyShow = dropdownContent.classList.contains('show');
+
+                    // Toggle 'show' para o conteúdo
+                    dropdownContent.classList.toggle('show');
+
+                    // Gerenciar classe 'active' no botão
+                    if (dropdownContent.classList.contains('show')) {
+                        dropdownBtn.classList.add('active'); // Adiciona 'active' quando o dropdown é aberto
+                    } else if (!isActiveParent) { 
+                        // Só remove 'active' se não for 'active-parent' (nenhum filho ativo)
+                        dropdownBtn.classList.remove('active');
+                    }
+                });
+
+                window.addEventListener('click', function(event) {
+                    if (dropdownContent.classList.contains('show')) {
+                        if (!dropdownBtn.contains(event.target) && !dropdownContent.contains(event.target)) {
+                            dropdownContent.classList.remove('show');
+                            // Se o dropdown é fechado e nenhum item filho está ativo, remove 'active' do botão
+                            if (!dropdownBtn.classList.contains('active-parent')) {
+                                dropdownBtn.classList.remove('active');
+                            }
+                        }
+                    }
+                });
+            }
         });
     </script>
 </body>
