@@ -165,7 +165,7 @@
         </div>
     </header>
 
-    <nav class="app-navigation">
+    <aside id="left-sidebar">
         <div class="nav-links">
             <a href="index.html">Início</a>
             <a href="app1_explorador_pilares.html">Pilares (App1)</a>
@@ -189,7 +189,7 @@
             <img src="images/icons_usados/moon.svg" alt="Ícone Lua" class="icon-moon theme-icon">
             <img src="images/icons_usados/sun.svg" alt="Ícone Sol" class="icon-sun theme-icon">
         </button>
-    </nav>
+    </aside>
 
     <main>
         <section class="content-section">
@@ -400,8 +400,8 @@
             }
 
             // --- Active Link Logic ---
-            const links = document.querySelectorAll('.app-navigation .nav-links a, .app-navigation .dropdown-content a');
-            const dropdownBtn = document.querySelector('.app-navigation .dropdown .dropbtn');
+            const links = document.querySelectorAll('#left-sidebar .nav-links a, #left-sidebar .dropdown-content a'); // Updated selector
+            const dropdownBtn = document.querySelector('#left-sidebar .dropdown .dropbtn'); // Updated selector
             let currentPath = window.location.pathname;
             
             if (currentPath.startsWith('file:')) {

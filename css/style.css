@@ -49,6 +49,23 @@
     --text-on-gradient-content-dark: #f0f0f0;  /* Um branco um pouco menos intenso para melhor leitura */
 
     --header-height: 100px;
+
+    /* Sidebar Specific Variables */
+    --sidebar-width: 260px;
+    --sidebar-bg-light: #f8f9fa;
+    --sidebar-bg-dark: #212529;
+    --sidebar-link-color-light: var(--color-text-primary-light);
+    --sidebar-link-color-dark: var(--color-text-primary-dark);
+    --sidebar-link-hover-bg-light: #e9ecef;
+    --sidebar-link-hover-bg-dark: #343a40;
+    --sidebar-link-active-bg-light: var(--color-logo-blue); /* Using accent color */
+    --sidebar-link-active-color-light: #FFFFFF; /* White text on accent bg */
+    --sidebar-link-active-bg-dark: var(--color-logo-green); /* Using accent color */
+    --sidebar-link-active-color-dark: #121212; /* Dark text on accent bg */
+    --sidebar-border-color-light: var(--color-border-light);
+    --sidebar-border-color-dark: var(--color-border-dark);
+    --sidebar-icon-filter-light: none; 
+    --sidebar-icon-filter-dark: invert(1) brightness(0.8) contrast(1.2); 
 }
 
 /* Estilos Globais */
@@ -63,6 +80,7 @@ body {
     flex-direction: column;
     min-height: 100vh;
     transition: background-color 0.3s ease, color 0.3s ease;
+    /* Adjust body to be aware of fixed header/sidebar for overall layout if needed, but main content margin handles it */
 }
 
 header {
@@ -73,9 +91,14 @@ header {
     align-items: center;
     justify-content: flex-start; 
     gap: 20px; 
-    min-height: var(--header-height);
+    height: var(--header-height); /* Use fixed height */
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     transition: background-image 0.3s ease, color 0.3s ease;
+    position: fixed; /* Fixed Header */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Header above sidebar */
 }
 
 .logo-container {
@@ -101,48 +124,70 @@ header h1 {
 
 .highlight-ai { /* Sem estilos específicos por enquanto */ }
 
-nav.app-navigation {
-    background-color: #333; 
-    padding: 8px 20px; 
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+/* Old nav.app-navigation can be removed or commented out if no longer used */
+/* For now, we assume it's empty and doesn't conflict. New styles target #left-sidebar */
+
+/* Sidebar Styling */
+#left-sidebar {
+    position: fixed;
+    left: 0;
+    top: var(--header-height);
+    height: calc(100vh - var(--header-height));
+    width: var(--sidebar-width);
+    background-color: var(--sidebar-bg-light);
+    padding: 20px;
+    overflow-y: auto;
+    z-index: 900; /* Below header, above main content if overlap occurs */
+    border-right: 1px solid var(--sidebar-border-color-light);
+    box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+    transition: background-color 0.3s ease, border-right-color 0.3s ease;
 }
 
-.nav-links {
+#left-sidebar .nav-links {
     display: flex;
-    align-items: center;
+    flex-direction: column; /* Stack links vertically */
+    align-items: flex-start;
 }
 
-.nav-links a {
-    color: #f0f0f0; 
-    margin-right: 20px; 
+#left-sidebar .nav-links a,
+#left-sidebar .dropdown .dropbtn {
+    color: var(--sidebar-link-color-light);
     text-decoration: none;
     font-weight: bold;
     font-size: 0.95em;
-    padding: 8px 12px;
+    padding: 10px 15px; /* Adjusted padding for vertical layout */
+    width: calc(100% - 30px); /* Full clickable width considering padding */
+    display: block; /* Make links block elements */
     border-radius: 4px;
+    margin-bottom: 5px; /* Space between links */
+    background-color: transparent; /* No background by default */
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.nav-links a:last-child {
-    margin-right: 0;
-}
-
-.nav-links a:hover, 
-.nav-links a.active { 
-    background-color: #555;
-    color: #ffffff;
+#left-sidebar .nav-links a:hover,
+#left-sidebar .dropdown .dropbtn:hover {
+    background-color: var(--sidebar-link-hover-bg-light);
+    color: var(--sidebar-link-color-light); /* Ensure text color remains */
     text-decoration: none;
 }
+
+#left-sidebar .nav-links a.active,
+#left-sidebar .dropdown .dropbtn.active,
+#left-sidebar .dropdown .dropbtn.active-parent { /* active-parent for dropdown button when child is active */
+    background-color: var(--sidebar-link-active-bg-light);
+    color: var(--sidebar-link-active-color-light); /* Ensure text color contrasts with active background */
+}
+
 
 main {
     flex-grow: 1;
     padding: 25px;
-    max-width: 1100px;
-    margin: 20px auto;
-    width: 90%;
+    margin-left: var(--sidebar-width); /* Adjust for fixed sidebar */
+    margin-top: var(--header-height); /* Adjust for fixed header */
+    width: calc(100% - var(--sidebar-width) - 50px); /* 50px for padding L+R */
+    max-width: 1100px; /* Retain max-width if desired, applied within the available space */
+    /* margin: 20px auto; REMOVED - no longer centered in viewport */
+    /* width: 90%; REMOVED */
 }
 
 .content-section {
@@ -239,10 +284,33 @@ body.dark-theme header h1 {
     color: var(--header-text-color-dark);
 }
 
+body.dark-theme #left-sidebar {
+    background-color: var(--sidebar-bg-dark);
+    border-right-color: var(--sidebar-border-color-dark);
+}
+
+body.dark-theme #left-sidebar .nav-links a,
+body.dark-theme #left-sidebar .dropdown .dropbtn {
+    color: var(--sidebar-link-color-dark);
+}
+
+body.dark-theme #left-sidebar .nav-links a:hover,
+body.dark-theme #left-sidebar .dropdown .dropbtn:hover {
+    background-color: var(--sidebar-link-hover-bg-dark);
+    color: var(--sidebar-link-color-dark);
+}
+
+body.dark-theme #left-sidebar .nav-links a.active,
+body.dark-theme #left-sidebar .dropdown .dropbtn.active,
+body.dark-theme #left-sidebar .dropdown .dropbtn.active-parent {
+    background-color: var(--sidebar-link-active-bg-dark);
+    color: var(--sidebar-link-active-color-dark);
+}
+
 body.dark-theme .content-section {
     background-image: var(--gradient-content-1-dark);
     color: var(--text-on-gradient-content-dark);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4); /* Sombra mais adaptada ao tema escuro */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4); 
 }
 
 body.dark-theme .content-section:nth-of-type(even) {
@@ -280,164 +348,199 @@ body.dark-theme footer a:hover {
     color: var(--color-logo-blue);
 }
 
-/* Botão de Alternância de Tema na Navegação com IMG */
-.theme-toggle-button-nav {
+/* Theme Toggle Button - now in sidebar */
+#left-sidebar .theme-toggle-button-nav {
     background-color: transparent; 
-    border: 1px solid var(--nav-icon-filter-light); /* Usa o filtro para a cor inicial da borda, ou uma cor específica */
+    border: 1px solid var(--sidebar-border-color-light); /* Use sidebar border color */
     border-radius: 50%; 
     width: 36px;  
     height: 36px; 
     padding: 0; 
     cursor: pointer;
-    z-index: 1000;
     transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: auto; 
+    margin-top: 20px; /* Space above the button */
+    align-self: center; /* Center it if .nav-links is flex container */
 }
 
-.theme-toggle-button-nav:hover {
+#left-sidebar .theme-toggle-button-nav:hover {
     transform: scale(1.1);
-    background-color: rgba(255,255,255,0.1); 
+    background-color: var(--sidebar-link-hover-bg-light); 
 }
 
-.theme-toggle-button-nav .theme-icon { 
+#left-sidebar .theme-toggle-button-nav .theme-icon { 
     width: 20px; 
     height: 20px;
-    filter: var(--nav-icon-filter-light); 
+    filter: var(--sidebar-icon-filter-light); 
     transition: filter 0.3s ease;
 }
 
-/* Estilo do botão no tema escuro */
-body.dark-theme .theme-toggle-button-nav {
-    border-color: var(--color-text-primary-dark); /* Cor da borda que contraste com o fundo da nav no tema escuro */
+body.dark-theme #left-sidebar .theme-toggle-button-nav {
+    border-color: var(--sidebar-border-color-dark);
 }
 
-body.dark-theme .theme-toggle-button-nav:hover {
-    background-color: rgba(0,0,0,0.2); 
+body.dark-theme #left-sidebar .theme-toggle-button-nav:hover {
+    background-color: var(--sidebar-link-hover-bg-dark); 
 }
 
-body.dark-theme .theme-toggle-button-nav .theme-icon {
-    filter: var(--nav-icon-filter-dark); 
+body.dark-theme #left-sidebar .theme-toggle-button-nav .theme-icon {
+    filter: var(--sidebar-icon-filter-dark); 
 }
 
+/* Icon visibility for theme toggle */
+#left-sidebar .theme-toggle-button-nav .icon-sun { display: none; }
+#left-sidebar .theme-toggle-button-nav .icon-moon { display: block; } 
 
-/* Esconder o ícone que não está ativo */
-.theme-toggle-button-nav .icon-sun { display: none; }
-.theme-toggle-button-nav .icon-moon { display: block; } 
-
-body.dark-theme .theme-toggle-button-nav .icon-sun { display: block; } 
-body.dark-theme .theme-toggle-button-nav .icon-moon { display: none; }
+body.dark-theme #left-sidebar .theme-toggle-button-nav .icon-sun { display: block; } 
+body.dark-theme #left-sidebar .theme-toggle-button-nav .icon-moon { display: none; }
 
 /* Ajustes para o logo principal no tema escuro */
 body.dark-theme #logo {
-    /* Se o seu logoNucleo.svg for predominantemente escuro (como o da amostra),
-       este filtro pode ajudar a torná-lo mais claro e visível contra o gradiente do header no tema escuro.
-       Ajuste os valores conforme necessário. `invert(1)` torna preto em branco. 
-       `hue-rotate` pode ser usado para mudar a tonalidade se a inversão pura não for ideal.
-       `brightness` e `contrast` ajudam a refinar. */
-    /* filter: invert(1) hue-rotate(180deg) brightness(1.2) contrast(1.1); */
-    /* Outra opção para logos escuros: apenas aumentar o brilho e contraste ou aplicar um drop-shadow claro */
     filter: brightness(1.5) contrast(1.2) drop-shadow(0 0 1px rgba(255, 255, 255, 0.5));
 }
 
-/* Estilos para o Dropdown */
-.dropdown {
+/* Estilos para o Dropdown dentro da Sidebar */
+#left-sidebar .dropdown {
     position: relative;
-    display: inline-block;
+    display: block; /* Make dropdown container block */
+    width: 100%;
 }
 
-.dropbtn {
-    background-color: inherit; /* Herda da nav-links a */
-    color: #f0f0f0;
-    padding: 8px 12px;
-    font-size: 0.95em;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-    font-family: var(--font-main);
-    border-radius: 4px;
-    transition: background-color 0.2s ease, color 0.2s ease;
+#left-sidebar .dropbtn {
+    /* Styles already defined above, ensure they take precedence or are merged */
+    width: 100%; /* Ensure button takes full width */
+    text-align: left; /* Align text to the left */
+    position: relative; /* For positioning the arrow */
 }
-
-.nav-links .dropdown .dropbtn:hover,
-.nav-links .dropdown .dropbtn.active { /* Estilo para quando o dropdown está ativo/hover */
-    background-color: #555;
-    color: #ffffff;
-}
-
-.dropbtn.active-parent {
-    /* Estilo para indicar que um item no dropdown está ativo */
-    background-color: rgba(0, 0, 0, 0.08); 
-    /* box-shadow: inset 0 -2px 0 var(--color-logo-green); */
-}
-body.dark-theme .dropbtn.active-parent {
-    background-color: rgba(255, 255, 255, 0.1); 
-}
-
-
-.dropdown-content {
-    display: none;
+#left-sidebar .dropbtn::after { /* Dropdown arrow */
+    content: '▼'; /* Simple text arrow, can be replaced with SVG */
     position: absolute;
-    background-color: #333; /* Mesmo fundo da nav */
-    min-width: 220px; /* Largura mínima para os itens */
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.3);
-    z-index: 1001; /* Acima do header */
-    border-radius: 0 0 4px 4px; /* Cantos arredondados na parte inferior */
-    padding-top: 5px; /* Pequeno espaço no topo */
-    padding-bottom: 5px; /* Pequeno espaço na base */
+    right: 15px;
+    font-size: 0.7em;
+    transition: transform 0.2s ease;
 }
 
-.dropdown-content a {
-    color: #f0f0f0;
-    padding: 10px 15px;
-    text-decoration: none;
+#left-sidebar .dropbtn.active::after,
+#left-sidebar .dropbtn.active-parent::after {
+    transform: rotate(180deg); /* Rotate arrow when open/active */
+}
+
+
+#left-sidebar .dropdown-content {
+    display: none; /* Hidden by default */
+    /* position: absolute; NO - will flow naturally in vertical sidebar */
+    background-color: var(--sidebar-link-hover-bg-light); /* Slightly different background */
+    min-width: 100%; 
+    box-shadow: inset 0px 2px 5px rgba(0,0,0,0.05); /* Inner shadow */
+    z-index: 1; /* Keep within sidebar flow */
+    border-radius: 4px; 
+    margin-top: 5px; /* Space between button and content */
+    padding-left: 15px; /* Indent dropdown items */
+    box-sizing: border-box;
+}
+body.dark-theme #left-sidebar .dropdown-content {
+    background-color: var(--sidebar-link-hover-bg-dark);
+    box-shadow: inset 0px 2px 5px rgba(0,0,0,0.1);
+}
+
+#left-sidebar .dropdown-content a {
+    color: var(--sidebar-link-color-light); /* Inherit sidebar link color */
+    padding: 8px 0; /* Adjust padding for items */
     display: block;
     font-size: 0.9em;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    font-weight: normal; /* Normal weight for dropdown items */
+    background-color: transparent;
+}
+body.dark-theme #left-sidebar .dropdown-content a {
+    color: var(--sidebar-link-color-dark);
 }
 
-.dropdown-content a:hover,
-.dropdown-content a.active { /* Item do dropdown ativo/hover */
-    background-color: #555;
-    color: #ffffff;
+#left-sidebar .dropdown-content a:hover {
+    background-color: transparent; /* No background change on hover, or very subtle */
+    color: var(--color-logo-green); /* Highlight with accent color on hover */
 }
+#left-sidebar .dropdown-content a.active {
+    background-color: transparent; /* No background for active item in dropdown */
+    color: var(--color-logo-green); /* Highlight active item with accent */
+    font-weight: bold;
+}
+body.dark-theme #left-sidebar .dropdown-content a:hover,
+body.dark-theme #left-sidebar .dropdown-content a.active {
+    color: var(--color-logo-green);
+}
+
 
 /* Mostrar o dropdown quando o botão é clicado (controlado por JS adicionando/removendo a classe 'show') */
-.dropdown-content.show {
+#left-sidebar .dropdown-content.show {
     display: block;
 }
 
-/* Responsividade básica para o dropdown */
+/* Responsividade */
 @media screen and (max-width: 768px) {
-    .dropdown-content {
-        min-width: 100%; /* Ocupa a largura total do dropdown container */
-        left: 0; /* Alinha à esquerda do container */
+    #left-sidebar {
+        width: 100%; /* Full width on small screens */
+        height: auto; /* Auto height */
+        position: static; /* No longer fixed */
+        border-right: none;
+        border-bottom: 1px solid var(--sidebar-border-color-light);
+        top: auto; /* Reset top */
     }
-    .nav-links {
-        flex-direction: column; /* Links e dropdown em coluna */
-        align-items: flex-start; /* Alinha itens à esquerda */
+    body.dark-theme #left-sidebar {
+        border-bottom-color: var(--sidebar-border-color-dark);
     }
-    .nav-links a, .nav-links .dropdown .dropbtn {
-        margin-right: 0;
-        margin-bottom: 5px; /* Espaçamento entre itens empilhados */
-        width: 100%; /* Fazem os botões ocuparem a largura */
-        box-sizing: border-box; /* Para que padding não aumente a largura total */
+
+    main {
+        margin-left: 0; /* No sidebar margin */
+        margin-top: 0; /* Header is also static or handled differently */
+        width: 100%; /* Full width */
+        padding: 20px; /* Adjust padding if needed */
     }
-    .nav-links .dropdown {
-        width: 100%; /* Dropdown ocupa a largura total */
+    header {
+        position: static; /* Header becomes static on small screens */
     }
-     .theme-toggle-button-nav {
-        margin-top: 10px; /* Adiciona espaço acima do botão de tema */
+
+    #left-sidebar .nav-links {
+        flex-direction: row; /* Horizontal layout for links */
+        flex-wrap: wrap; /* Allow wrapping */
+        justify-content: center;
+    }
+    #left-sidebar .nav-links a, 
+    #left-sidebar .dropdown { /* Target dropdown container */
+        width: auto; /* Auto width for links */
+        margin: 5px;
+    }
+    #left-sidebar .dropdown .dropbtn {
+        width: auto; /* Button auto width */
+    }
+    #left-sidebar .dropdown-content {
+        position: absolute; /* Dropdown content becomes absolute again */
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        min-width: 200px;
+        width: max-content;
+        background-color: var(--sidebar-bg-light); /* Match sidebar bg */
+    }
+    body.dark-theme #left-sidebar .dropdown-content {
+        background-color: var(--sidebar-bg-dark);
+    }
+    #left-sidebar .theme-toggle-button-nav {
+        margin: 10px auto; /* Center toggle button */
     }
 }
 
+
 /* Specific styling for code blocks in comparison boxes (e.g., App6) */
+/* Old .app-navigation styles are now fully removed. */
+
+
 .comparison-box code {
-    color: var(--color-text-secondary-light); /* Default to a dark color for light theme */
+    color: var(--color-text-secondary-light); 
 }
 
 body.dark-theme .comparison-box code {
-    color: var(--text-on-gradient-content-dark); /* Lighter text for dark theme code blocks */
+    color: var(--text-on-gradient-content-dark); 
 }
