@@ -148,24 +148,20 @@
     </header>
 
     <aside id="left-sidebar">
+        <button id="toggleSidebarButton" aria-label="Ocultar barra lateral" title="Ocultar/Mostrar barra lateral">&leftarrow; Ocultar</button>
         <div class="nav-links">
-            <a href="index.html">Início</a>
-            <a href="app1_explorador_pilares.html">Pilares (App1)</a>
-            <a href="app2_hotspots_globais.html">Hotspots (App2)</a>
-            <a href="app3_descomplicador_barreiras.html">Barreiras (App3)</a>
-            <div class="dropdown">
-                <button class="dropbtn">Mais Apps &#9662;</button>
-                <div class="dropdown-content">
-                    <a href="app4_casos_sucesso_fracasso.html">Casos (App4)</a>
-                    <a href="app5_decodificador_dispositivos.html">Dispositivos (App5)</a>
-                    <a href="app6_linguagem_natural.html">Linguagem (App6)</a>
-                    <a href="app7_balanca_etica.html">Ética (App7)</a>
-                    <a href="app8_regulacao_inovacao.html">Regulação (App8)</a>
-                    <a href="app9_teia_transformacao.html">Interdependências (App9)</a>
-                    <a href="app10_dispositivos_barreiras.html">Disp. Barreiras (App10)</a>
-                    <a href="app11_paradoxo_interacao.html">Paradoxo (App11)</a>
-                </div>
-            </div>
+            <a href="index.html">Página Inicial</a>
+            <a href="app1_explorador_pilares.html">Explorador de Pilares Fundamentais</a>
+            <a href="app2_hotspots_globais.html">Hotspots Globais de IA e Direito</a>
+            <a href="app3_descomplicador_barreiras.html">Descomplicador de Barreiras à IA</a>
+            <a href="app4_casos_sucesso_fracasso.html">Casos de Sucesso e Fracasso em IA</a>
+            <a href="app5_decodificador_dispositivos.html">Decodificador de Dispositivos Jurídicos</a>
+            <a href="app6_linguagem_natural.html">IA e Linguagem Natural no Direito</a>
+            <a href="app7_balanca_etica.html">Balança Ética da IA Generativa</a>
+            <a href="app8_regulacao_inovacao.html">Regulação vs. Inovação em IA</a>
+            <a href="app9_teia_transformacao.html">Teia de Transformação Digital e IA</a>
+            <a href="app10_dispositivos_barreiras.html">Dispositivos vs. Barreiras Regulatórias</a>
+            <a href="app11_paradoxo_interacao.html">Paradoxo da Interação Humano-IA</a>
         </div>
         <button id="themeToggle" class="theme-toggle-button-nav" aria-label="Alternar tema">
             <img src="images/icons_usados/moon.svg" alt="Ícone Lua" class="icon-moon theme-icon">
@@ -338,8 +334,9 @@
             // Para este app, a renderização é feita inline após o script do auto-render.
 
             // --- Active Link Logic ---
-            const links = document.querySelectorAll('#left-sidebar .nav-links a, #left-sidebar .dropdown-content a'); // Updated selector
-            const dropdownBtn = document.querySelector('#left-sidebar .dropdown .dropbtn'); // Updated selector
+            const links = document.querySelectorAll('#left-sidebar .nav-links a'); // Updated selector for direct links
+            const dropdownBtn = null; // Dropdown button is removed
+            // const dropdownBtn = document.querySelector('#left-sidebar .dropdown .dropbtn'); // Updated selector
             let currentPath = window.location.pathname;
             
             if (currentPath.startsWith('file:')) {
@@ -357,10 +354,11 @@
                 const linkPath = link.getAttribute('href').split('/').pop();
                 if (linkPath === currentPath) {
                     link.classList.add('active');
-                    if (link.closest('.dropdown-content') && dropdownBtn) {
-                        link.closest('.dropdown').querySelector('.dropbtn').classList.add('active-parent');
-                        isDropdownItemActive = true; 
-                    }
+                    // Dropdown specific logic removed as dropdown is gone
+                    // if (link.closest('.dropdown-content') && dropdownBtn) {
+                    //     link.closest('.dropdown').querySelector('.dropbtn').classList.add('active-parent');
+                    //     isDropdownItemActive = true; 
+                    // }
                 } else {
                     link.classList.remove('active');
                 }
@@ -368,42 +366,78 @@
             // Removido: if (isDropdownItemActive && dropdownBtn) { dropdownBtn.classList.add('active'); }
             // A lógica acima já adiciona 'active-parent', e 'active' será gerenciada pelo clique.
 
-            // --- Dropdown Logic ---
-            if (dropdownBtn) {
-                const dropdownContent = dropdownBtn.nextElementSibling;
+            // --- Dropdown Logic --- REMOVED
+            // if (dropdownBtn) {
+            //     const dropdownContent = dropdownBtn.nextElementSibling;
 
-                dropdownBtn.addEventListener('click', function(event) {
-                    event.stopPropagation(); 
-                    const isCurrentlyShow = dropdownContent.classList.contains('show');
+            //     dropdownBtn.addEventListener('click', function(event) {
+            //         event.stopPropagation(); 
+            //         const isCurrentlyShow = dropdownContent.classList.contains('show');
                     
-                    // Toggle 'show' para o conteúdo
-                    dropdownContent.classList.toggle('show');
+            //         // Toggle 'show' para o conteúdo
+            //         dropdownContent.classList.toggle('show');
 
-                    // Gerenciar classe 'active' no botão
-                    if (dropdownContent.classList.contains('show')) {
-                        dropdownBtn.classList.add('active'); 
+            //         // Gerenciar classe 'active' no botão
+            //         if (dropdownContent.classList.contains('show')) {
+            //             dropdownBtn.classList.add('active'); 
+            //         } else {
+            //             // Só remove 'active' se não for 'active-parent' (nenhum filho ativo)
+            //             // e o dropdown está sendo fechado
+            //             if (!dropdownBtn.classList.contains('active-parent')) {
+            //                dropdownBtn.classList.remove('active');
+            //             }
+            //         }
+            //     });
+
+            //     window.addEventListener('click', function(event) {
+            //         if (dropdownContent.classList.contains('show')) {
+            //             if (!dropdownBtn.contains(event.target) && !dropdownContent.contains(event.target)) {
+            //                 dropdownContent.classList.remove('show');
+            //                 // Se o dropdown é fechado e nenhum item filho está ativo, remove 'active' do botão
+            //                 if (!dropdownBtn.classList.contains('active-parent')) {
+            //                     dropdownBtn.classList.remove('active');
+            //                 }
+            //             }
+            //         }
+            //     });
+            // }
+
+            // Sidebar Toggle Functionality
+            const toggleButton = document.getElementById('toggleSidebarButton');
+            const sidebar = document.getElementById('left-sidebar');
+            
+            function setSidebarState(state) {
+                if (state === 'collapsed') {
+                    document.body.classList.add('sidebar-collapsed');
+                    toggleButton.innerHTML = '&rightarrow; Mostrar';
+                    toggleButton.setAttribute('aria-label', 'Mostrar barra lateral');
+                } else {
+                    document.body.classList.remove('sidebar-collapsed');
+                    toggleButton.innerHTML = '&leftarrow; Ocultar';
+                    toggleButton.setAttribute('aria-label', 'Ocultar barra lateral');
+                }
+            }
+
+            // Check localStorage for saved state
+            const savedSidebarState = localStorage.getItem('sidebarState');
+            if (savedSidebarState) {
+                setSidebarState(savedSidebarState);
+            } else {
+                setSidebarState('expanded'); // Default to expanded
+            }
+
+            if (toggleButton) { // Ensure button exists before adding listener
+                toggleButton.addEventListener('click', () => {
+                    const isCollapsed = document.body.classList.contains('sidebar-collapsed');
+                    if (isCollapsed) {
+                        setSidebarState('expanded');
+                        localStorage.setItem('sidebarState', 'expanded');
                     } else {
-                        // Só remove 'active' se não for 'active-parent' (nenhum filho ativo)
-                        // e o dropdown está sendo fechado
-                        if (!dropdownBtn.classList.contains('active-parent')) {
-                           dropdownBtn.classList.remove('active');
-                        }
-                    }
-                });
-
-                window.addEventListener('click', function(event) {
-                    if (dropdownContent.classList.contains('show')) {
-                        if (!dropdownBtn.contains(event.target) && !dropdownContent.contains(event.target)) {
-                            dropdownContent.classList.remove('show');
-                            // Se o dropdown é fechado e nenhum item filho está ativo, remove 'active' do botão
-                            if (!dropdownBtn.classList.contains('active-parent')) {
-                                dropdownBtn.classList.remove('active');
-                            }
-                        }
+                        setSidebarState('collapsed');
+                        localStorage.setItem('sidebarState', 'collapsed');
                     }
                 });
             }
-
 
             // Script para comportamento de Acordeão nos pilares
             // (código mantido da versão anterior)
